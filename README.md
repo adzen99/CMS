@@ -1,1 +1,1 @@
-# invoicing
+frontend: npm run dev
