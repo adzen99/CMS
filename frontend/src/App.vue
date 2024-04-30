@@ -1,8 +1,7 @@
-<script setup>  
+<script setup>
 </script>
 
 <template>
-    <Login></Login>
     <router-view/>
 </template>
 
