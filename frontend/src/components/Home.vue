@@ -1,9 +1,10 @@
-<script setup>  
+<script setup>
 </script>
 
 <template>
-    <Login></Login>
-    <router-view/>
+  <div>
+    home page
+  </div>
 </template>
 
 <style scoped>
