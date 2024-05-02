@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import globals from './globals'
 import axios from 'axios'
+import $ from "jquery"
 import 'bootstrap/dist/css/bootstrap.css'
 import bootstrap from 'bootstrap/dist/js/bootstrap.js'
 
@@ -22,6 +23,13 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faIdCard } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSquarePhone } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCircleUser)
 library.add(faCalendarDays)
@@ -35,6 +43,13 @@ library.add(faFilePdf)
 library.add(faPenToSquare)
 library.add(faTrashCan)
 library.add(faCirclePlus)
+library.add(faIdCard)
+library.add(faBriefcase)
+library.add(faUser)
+library.add(faSquarePhone)
+library.add(faEnvelope)
+library.add(faPhone)
+library.add(faFloppyDisk);
 
 const app = createApp(App)
 
@@ -44,6 +59,5 @@ app.config.globalProperties.axios = axios
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.use(router)
-app.use(bootstrap)
 
 app.mount('#app')

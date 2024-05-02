@@ -1,6 +1,6 @@
 <script setup>
     import { ref } from 'vue'
-    import logoURL from '../assets/logo.png'
+    import logoURL from '../../assets/logo.png'
 
     const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
@@ -34,9 +34,9 @@
 				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-invoice" /></span>
 				<span class="text">Invoices</span>
 			</router-link>
-			<router-link to="/annexes" class="button">
+			<router-link to="/appendicies" class="button">
 				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-lines" /></span>
-				<span class="text">Annexes</span>
+				<span class="text">Appendicies</span>
 			</router-link>
 		</div>
 
@@ -44,7 +44,7 @@
         
         <h3>Settings</h3>
 		<div class="menu">
-			<router-link to="/settings" class="button">
+			<router-link to="/myaccount" class="button">
 				<span class="material-icons"><font-awesome-icon class="icon" icon="fa-solid fa-gears" /></span>
 				<span class="text">My account</span>
 			</router-link>

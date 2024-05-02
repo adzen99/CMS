@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../components/Home.vue'
-import Login from '../components/Login.vue'
-import Invoices from '../components/Invoices.vue'
+import Home from '../components/view/Home.vue'
+import Login from '../components/view/Login.vue'
+import Invoices from '../components/view/Invoices.vue'
+import Appendicies from '../components/view/Appendicies.vue'
+import MyAccount from '../components/view/MyAccount.vue'
 
 const routes = [
     {
@@ -19,6 +21,16 @@ const routes = [
         path: '/invoices',
         name: 'Invoices',
         component: Invoices
+    },
+    {
+        path: '/appendicies',
+        name: 'Appendicies',
+        component: Appendicies
+    },
+    {
+        path: '/myaccount',
+        name: 'MyAccount',
+        component: MyAccount
     }
 ]
 

@@ -32,13 +32,13 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <span class="nav-link"><font-awesome-icon class="icon" icon="fa-solid fa-euro-sign" />4.97 RON</span>
+                    <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-euro-sign" />4.97 RON</span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link"><font-awesome-icon class="icon" icon="fa-solid fa-calendar-days" />{{ currentDate }}</span>
+                    <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-calendar-days" />{{ currentDate }}</span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link"><font-awesome-icon class="icon" icon="fa-solid fa-circle-user" />Vasile Parpalac</span>
+                    <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-user" />Vasile Parpalac</span>
                 </li>
             </ul>
         </div>
@@ -56,8 +56,5 @@
     }
     .nav-item .nav-link {
         color: var(--light) !important;
-    }
-    .icon{
-        margin-right: 7px;
     }
 </style>

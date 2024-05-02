@@ -8,3 +8,20 @@ table th, table td {
 .w-100{
     width:100%;
 }
+.m-2rem{
+    margin: 2rem;
+}
+.icon-mr-7{
+    margin-right: 7px;
+}
+.mt-1rem{
+    margin-top: 1rem;
+}
+.d-flex {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:15px;
+}
+.mb-15px{
+    margin-bottom: 15px;
+}

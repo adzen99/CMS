@@ -1,5 +1,5 @@
 <script>
-    import Invoice from "./Invoice.vue"
+    import Invoice from "../Invoice.vue"
     import Topbar from "./Topbar.vue"
     export default {
         components : { Topbar, Invoice},
@@ -21,7 +21,7 @@
         <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with the invoices</h5>
-                <button type="button" class="btn btn-warning"><font-awesome-icon class="icon" icon="fa-solid fa-circle-plus" />Add a new invoice</button>
+                <button type="button" class="btn btn-warning"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new invoice</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -51,17 +51,7 @@
     section table{
         width: 100%;
     }
-    .mb-15px{
-        margin-bottom: 15px;
-    }
-    .d-flex {
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom:15px;
-    }
-    .icon{
-        margin-right: 7px;
-    }
+    
     .container{
         margin-top: 2rem;
     }

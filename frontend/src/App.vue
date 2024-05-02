@@ -1,6 +1,6 @@
 <script setup>
-    import Sidebar from "./components/Sidebar.vue"
-    import Topbar from "./components/Topbar.vue"
+    import Sidebar from "./components/view/Sidebar.vue"
+    import Topbar from "./components/view/Topbar.vue"
 </script>
 
 <template>
@@ -19,6 +19,7 @@
         --grey: #64748b;
         --dark: #1e293b;
         --dark-alt: #334155;
+        --dark-alt-lighter: #303d50;
         --light: #f1f5f9;
         --sidebar-width: 300px;
     }
@@ -68,13 +69,44 @@
         color: var(--light) !important;
     }
     table tbody tr:nth-child(even) td{
-        background-color: var(--grey) !important;
+        background-color: var(--dark-alt-lighter) !important;
     }
 
     table tbody tr:nth-child(odd) td{
         background-color: var(--dark-alt) !important;
     }
+    
+    .nav-tabs {
+        border-bottom: var(--bs-nav-tabs-border-width) solid var(--grey)  !important;
+    }
+    .nav-item .nav-link {
+        color: var(--light) !important;
+    }
+    .nav-item .nav-link.active {
+        background: var(--dark) !important;
+        font-weight: bold;
+        border-color: var(--grey) !important;
+    }
+    
+    .card {
+        border: var(--bs-card-border-width) solid var(--grey) !important;
+        color: var(--light) !important;
+    }
+    .card-header{
+        background: var(--dark) !important;
+    }
+    .card-body{
+        background: var(--dark-alt-lighter) !important;
+    }
+    input.form-control {
+        background: var(--dark) !important;
+        color: var(--light) !important;
+        border: var(--bs-border-width) solid var(--grey) !important;
+    }
+    .input-group .input-group-text {
+        color: var(--light) !important;
+        background: var(--dark-alt) !important;
+        border: var(--bs-border-width) solid var(--grey) !important;
+    }
 
-  
-   
 </style>
