@@ -3,6 +3,8 @@
     import Topbar from "./Topbar.vue"
     export default {
         components : { Topbar, Invoice},
+        mounted(){
+        },
         data(){
             return {
                 invoices : [

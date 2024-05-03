@@ -1,4 +1,5 @@
 <script>
+import { mapState } from 'vuex'
     export default {
         data() {
             return {
@@ -7,21 +8,45 @@
             }
         },
         methods: {
-            login() {
-                this.$router.push("/")
+            async handleLogin() {
+                await this.axios.post('/login',{
+                    username: this.username,
+                    password: this.password,
+                })
+                .then(() => {
+
+                })
+                .catch(() => {
+
+                })
+
+                // this.$router.push("/")
             }
-        }
+        },
+        // computed: {
+        //     ...mapState('auth', {
+        //         fn: (state) => state.name,
+        //     }),
+        // }
     }
 </script>
 
 <template>
     <div class="body-container">
         <div class="container">
-            <h2>Login</h2>
+            <h2><font-awesome-icon icon="fa-solid fa-right-to-bracket" /></h2>
             <div>
-                <input type="text" name="username" placeholder="Username" v-model="username">
-                <input type="password" name="password" placeholder="Password" v-model="password">
-                <button type="submit" value="Login" @click="login()">Login</button>
+                <div class="mb-3 col-12">
+                    <label for="username_input" class="form-label">Username</label>
+                    <input type="email" class="form-control" id="username_input" v-model.trim="username">
+                </div>
+                <div class="mb-3 col-12">
+                    <label for="password_input" class="form-label">Password</label>
+                    <input type="email" class="form-control" id="password_input" v-model.trim="password">
+                </div>
+                <div class="col-12 d-flex justify-content-center align-content-center">
+                    <button type="button" class="btn btn-success"  @click="handleLogin()">Log In</button>
+                </div>
             </div>
         </div>
     </div>
@@ -36,13 +61,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    /* background-color: #f0f0f0; */
+    width:100%;
     }
 
     .container {
     width: 300px;
     padding: 20px;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }

@@ -4,12 +4,8 @@
 </script>
 
 <template>
-    <div class="app">
-        <Sidebar/>
-        <!-- <Topbar/> -->
-        <router-view/>
-    </div>
-    
+    <Sidebar v-if="$route.path != '/login'"/>
+    <router-view/>
 </template>
 
 <style lang="scss">
@@ -43,9 +39,8 @@
         outline: none;
         background: none;
     }
-    .app {
+    #app {
         display: flex;
-
         main {
             flex: 1 1 0;
             padding: 2rem;

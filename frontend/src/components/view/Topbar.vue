@@ -1,4 +1,5 @@
 <script>
+    import $ from "jquery"
     export default {
         data(){
             return {
@@ -13,6 +14,7 @@
             }
         },
         mounted(){
+            // $('.dropdown-toggle').dropdown()
             // this.axios.get('https://www.bnr.ro/nbrfxrates.xml', {
             //     headers: {
             //         "Access-Control-Allow-Origin": "*",
@@ -38,7 +40,16 @@
                     <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-calendar-days" />{{ currentDate }}</span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-user" />Vasile Parpalac</span>
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-user" />Vasile Parpalac
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">Action</button>
+                        <button class="dropdown-item" type="button">Another action</button>
+                        <button class="dropdown-item" type="button">Something else here</button>
+                    </div>
+                    </div>
                 </li>
             </ul>
         </div>

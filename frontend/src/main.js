@@ -4,9 +4,11 @@ import App from './App.vue'
 import router from './router'
 import globals from './globals'
 import axios from 'axios'
-import $ from "jquery"
+import store from './store/store'
+
+import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
-import bootstrap from 'bootstrap/dist/js/bootstrap.js'
+import 'bootstrap/dist/js/bootstrap.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -30,6 +32,7 @@ import { faSquarePhone } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCircleUser)
 library.add(faCalendarDays)
@@ -50,14 +53,21 @@ library.add(faSquarePhone)
 library.add(faEnvelope)
 library.add(faPhone)
 library.add(faFloppyDisk);
+library.add(faRightToBracket);
+
+// axios.defaults.withCredentials = true
+// axios.defaults.baseURL = '127.0.0.1:8000';
 
 const app = createApp(App)
 
 app.config.globalProperties.globals = globals
+
+axios.defaults.baseURL = '/api';
 app.config.globalProperties.axios = axios
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.use(router)
+app.use(store)
 
 app.mount('#app')
