@@ -62,7 +62,6 @@ const app = createApp(App)
 
 app.config.globalProperties.globals = globals
 
-axios.defaults.baseURL = '/api';
 app.config.globalProperties.axios = axios
 
 app.component('font-awesome-icon', FontAwesomeIcon)

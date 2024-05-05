@@ -1,5 +1,11 @@
 <script>
-import { mapState } from 'vuex'
+    import {ref} from "vue"
+
+    const form = ref({
+        username: '',
+        password: '',
+    })
+
     export default {
         data() {
             return {
@@ -9,25 +15,34 @@ import { mapState } from 'vuex'
         },
         methods: {
             async handleLogin() {
-                await this.axios.post('/login',{
+                await this.axios.post('/api/login',{
                     username: this.username,
                     password: this.password,
                 })
-                .then(() => {
-
+                .then((response) => {
+                    console.log(response);
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.log(err.response.data);
+                })
 
+                // this.$router.push("/")
+            },
+            async handleLogout() {
+                await this.axios.post('/api/logout',{
+                    username: this.username,
+                    password: this.password,
+                })
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((err) => {
+                    console.log(err.response.data);
                 })
 
                 // this.$router.push("/")
             }
         },
-        // computed: {
-        //     ...mapState('auth', {
-        //         fn: (state) => state.name,
-        //     }),
-        // }
     }
 </script>
 
@@ -38,14 +53,16 @@ import { mapState } from 'vuex'
             <div>
                 <div class="mb-3 col-12">
                     <label for="username_input" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="username_input" v-model.trim="username">
+                    <input type="text" class="form-control" id="username_input" v-model.trim="username">
                 </div>
                 <div class="mb-3 col-12">
                     <label for="password_input" class="form-label">Password</label>
-                    <input type="email" class="form-control" id="password_input" v-model.trim="password">
+                    <input type="password" class="form-control" id="password_input" v-model.trim="password">
                 </div>
                 <div class="col-12 d-flex justify-content-center align-content-center">
                     <button type="button" class="btn btn-success"  @click="handleLogin()">Log In</button>
+                    <button type="button" class="btn btn-warning"  @click="handleLogout()">Log out</button>
+
                 </div>
             </div>
         </div>

@@ -25,10 +25,4 @@ class UserController extends Controller{
         return response()->json(['status' => true, 'message' => 'User registered successfully!']);
     }
 
-    public function login(Request $request){
-
-        return response()->json(['status' => true, 'message' => 'User logged successfully!']);
-        return response()->json(['status' => false, 'message' => 'User logged failed!']);
-    }
-
 }
