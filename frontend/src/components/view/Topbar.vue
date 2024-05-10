@@ -1,9 +1,7 @@
 <script>
-    import $ from "jquery"
     export default {
         data(){
             return {
-                fullName: null,
                 currentDate: this.getCurrentDate()
             }
         },
@@ -11,6 +9,11 @@
             getCurrentDate(){
                 const date = new Date()
                 return this.globals.weekDays[date.getDay()] + ', ' + date.toLocaleDateString()
+            }
+        },
+        computed:{
+            loggedUser(){
+                return this.$store.state.user
             }
         },
         mounted(){
@@ -42,7 +45,7 @@
                 <li class="nav-item">
                     <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-user" />Vasile Parpalac
+                        <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-user" />{{ loggedUser.first_name + ' ' + loggedUser.last_name }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item" type="button">Action</button>

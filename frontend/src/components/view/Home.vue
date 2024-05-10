@@ -1,17 +1,19 @@
 <script setup>
-  import {ref, onMounted} from "vue"
+  import Topbar from "./Topbar.vue"
+  import {onMounted} from "vue"
   import axios from 'axios'
-
-  const user = ref()
   
   onMounted(async () => {
-    const data = axios.get('/api/user')
-    console.log(data)
+    // const data = axios.get('http://127.0.0.1:8000/api/user')
+    // console.log(data)
+    // user.value = {id: 1, username: 'alex.dzen', email: 'dzzenalex9@gmail.com', first_name: 'Alex', last_name: 'Dzen', phone: '0751321045'}
+    // console.log(user.value)
   })  
 </script>
 
 <template>
-  <div>
+  <div class="w-100">
+    <Topbar/>
   </div>
 </template>
 

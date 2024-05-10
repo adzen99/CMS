@@ -1,10 +1,4 @@
 <script>
-    import {ref} from "vue"
-
-    const form = ref({
-        username: '',
-        password: '',
-    })
 
     export default {
         data() {
@@ -15,21 +9,22 @@
         },
         methods: {
             async handleLogin() {
-                await this.axios.post('/api/login',{
-                    username: this.username,
-                    password: this.password,
-                })
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((err) => {
-                    console.log(err.response.data);
-                })
-
-                // this.$router.push("/")
+                // await this.axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(() =>{
+                //     this.axios.post('http://127.0.0.1:8000/login',{
+                //             username: this.username,
+                //             password: this.password,
+                //         })
+                //         .then((response) => {
+                //             console.log(response);
+                //         })
+                //         .catch((err) => {
+                //             console.log(err.response.data);
+                //         })
+                // })
+                this.$router.push("/")
             },
             async handleLogout() {
-                await this.axios.post('/api/logout',{
+                await this.axios.post('http://127.0.0.1:8000/logout',{
                     username: this.username,
                     password: this.password,
                 })

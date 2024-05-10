@@ -36,7 +36,7 @@
             //         localStorage.setItem("myAccountTab", this.id)
             //     })
             // },
-        }
+        },
     }
 </script>
 

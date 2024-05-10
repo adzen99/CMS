@@ -1,6 +1,5 @@
 <script setup>
     import Sidebar from "./components/view/Sidebar.vue"
-    import Topbar from "./components/view/Topbar.vue"
 </script>
 
 <template>
@@ -102,6 +101,10 @@
         color: var(--light) !important;
         background: var(--dark-alt) !important;
         border: var(--bs-border-width) solid var(--grey) !important;
+    }
+
+    .modal-content{
+        background: var(--dark) !important;
     }
 
 </style>

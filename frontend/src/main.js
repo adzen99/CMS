@@ -7,7 +7,7 @@ import axios from 'axios'
 import store from './store/store'
 
 import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.min.css"
 import 'bootstrap/dist/js/bootstrap.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -55,7 +55,7 @@ library.add(faPhone)
 library.add(faFloppyDisk);
 library.add(faRightToBracket);
 
-// axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true
 // axios.defaults.baseURL = '127.0.0.1:8000';
 
 const app = createApp(App)
@@ -66,7 +66,6 @@ app.config.globalProperties.axios = axios
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 
-app.use(router)
-app.use(store)
+app.use(router).use(store)
 
 app.mount('#app')
