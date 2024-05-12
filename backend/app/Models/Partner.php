@@ -9,6 +9,8 @@ class Partner extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    
      /**
      * The table associated with the model.
      *
@@ -23,8 +25,9 @@ class Partner extends Model
      */
     protected $fillable = [
         'name',
+        'id_user',
         'address',
-        'id_city',
+        'id_locality',
         'id_county',
         'cui',
         'nr_reg',

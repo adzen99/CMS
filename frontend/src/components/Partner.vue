@@ -3,7 +3,7 @@
         mounted(){
         },
         props: {
-            company: Object,
+            partner: Object,
             no: Number,
         },
     }
@@ -13,9 +13,8 @@
     <tr>
         <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
-        <td><b>{{ company.name }}</b><br/><small>{{ 'CUI: ' + company.cui }}</small><br/><small>{{ 'Nr. reg. ' + company.nr_reg }}</small></td>
-        <td>{{ company.locality + ', ' + company.county }}<br/><small>{{ company.address }}</small></td>
-        <td>{{ company.bank }}<br/><small>{{ 'IBAN: ' + company.iban }}</small></td>
+        <td><b>{{ partner.name }}</b><br/><small>{{ 'CUI: ' + partner.cui }}</small><br/><small>{{ 'Nr. reg. ' + partner.nr_reg }}</small></td>
+        <td>{{ partner.locality + ', ' + partner.county }}<br/><small>{{ partner.address }}</small></td>
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>

@@ -33,6 +33,8 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import { faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { faFileContract } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCircleUser)
 library.add(faCalendarDays)
@@ -54,8 +56,15 @@ library.add(faEnvelope)
 library.add(faPhone)
 library.add(faFloppyDisk);
 library.add(faRightToBracket);
+library.add(faHandshake);
+library.add(faFileContract);
 
+axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true
 axios.defaults.withCredentials = true
+axios.defaults.headers.common['Access-Control-Allow-Headers'] = "Origin, X-Requested-With, Content-Type, Accept"
+axios.defaults.headers.common['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE"
+axios.defaults.headers.common['Content-Type'] = "application/json"
+
 // axios.defaults.baseURL = '127.0.0.1:8000';
 
 const app = createApp(App)

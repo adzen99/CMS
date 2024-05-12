@@ -1,28 +1,10 @@
-<script>
-    import Appendix from "../Appendix.vue"
-    import Topbar from "./Topbar.vue"
-    export default {
-        components : { Topbar, Appendix},
-        data(){
-            return {
-                appendicies : [
-                    {id:1, no: 1323, date: '2024-01-01', contract: '1 of 2024-01-01', value: '2234.24 RON'},
-                    {id:2, no: 22, date: '2024-01-01', contract: '1 of 2024-01-01', value: '9551.24 RON'},
-                    {id:2, no: 235, date: '2024-01-01', contract: '1 of 2024-01-01', value: '9551.24 RON'}
-                ],
-                appendiciesNumber : 2,
-            }
-        }
-    }
-</script>
-
 <template>
     <div class="w-100 background-contrast">
         <Topbar/>
         <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with the appendicies</h5>
-                <button type="button" class="btn btn-warning"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new appendix</button>
+                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new appendix</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -44,9 +26,32 @@
                     </tbody>
                 </table>
             </section>
+            <AddAppendixModal :data="addAppendixModalOpen" @hidden-modal="addAppendixModalOpen=false"/>
         </div>
     </div>
 </template>
+
+<script>
+    import Appendix from "../Appendix.vue"
+    import Topbar from "./Topbar.vue"
+    import AddAppendixModal from "../modals/AddAppendixModal.vue"
+
+    export default {
+        components : { Topbar, Appendix, AddAppendixModal},
+        data(){
+            return {
+                appendicies : {},
+                appendiciesNumber : 0,
+                addAppendixModalOpen: false,
+            }
+        },
+        methods: {
+            openModal(){
+                if(this.addAppendixModalOpen===false) this.addAppendixModalOpen = true;
+            }
+        },
+    }
+</script>
 
 <style scoped>
     section table{

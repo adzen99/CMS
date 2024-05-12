@@ -33,7 +33,7 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" /></th>
-                            <th>No.</th>
+                            <th>#</th>
                             <th>Date</th>
                             <th>Contract</th>
                             <th>Value</th>

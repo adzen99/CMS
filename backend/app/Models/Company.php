@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
      /**
      * The table associated with the model.
      *
@@ -25,7 +25,7 @@ class Company extends Model
         'id_user',
         'name',
         'address',
-        'id_city',
+        'id_locality',
         'id_county',
         'cui',
         'nr_reg',

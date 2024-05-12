@@ -59,7 +59,7 @@
         color: var(--light) !important;
     }
 
-    table tbody td{
+    table tbody td, label, .nav-item .nav-link, .modal-title, .btn-close{
         color: var(--light) !important;
     }
     table tbody tr:nth-child(even) td{
@@ -69,12 +69,13 @@
     table tbody tr:nth-child(odd) td{
         background-color: var(--dark-alt) !important;
     }
+
+    table th, table td {
+        vertical-align: middle;
+    }
     
     .nav-tabs {
         border-bottom: var(--bs-nav-tabs-border-width) solid var(--grey)  !important;
-    }
-    .nav-item .nav-link {
-        color: var(--light) !important;
     }
     .nav-item .nav-link.active {
         background: var(--dark) !important;
@@ -92,7 +93,7 @@
     .card-body{
         background: var(--dark-alt-lighter) !important;
     }
-    input.form-control {
+    input.form-control, select.form-select {
         background: var(--dark) !important;
         color: var(--light) !important;
         border: var(--bs-border-width) solid var(--grey) !important;

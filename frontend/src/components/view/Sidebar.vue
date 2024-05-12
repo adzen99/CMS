@@ -30,13 +30,17 @@
 
 		<h3>Documents</h3>
 		<div class="menu">
+            <router-link to="/appendicies" class="button">
+				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-lines" /></span>
+				<span class="text">Appendicies</span>
+			</router-link>
 			<router-link to="/invoices" class="button">
 				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-invoice" /></span>
 				<span class="text">Invoices</span>
 			</router-link>
-			<router-link to="/appendicies" class="button">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-lines" /></span>
-				<span class="text">Appendicies</span>
+            <router-link to="/contracts" class="button">
+				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-contract" /></span>
+				<span class="text">Contracts</span>
 			</router-link>
 		</div>
 

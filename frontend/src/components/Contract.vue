@@ -1,10 +1,15 @@
 <script>
     export default {
         mounted(){
+            var date = new Date(this.contract.date)
+            this.contract.date = date.toLocaleDateString()
+
+            date = new Date(this.contract.expiration_date)
+            this.contract.expiration_date = date.toLocaleDateString()
         },
         props: {
-            company: Object,
-            no: Number,
+            contract: Object,
+            no: Number
         },
     }
 </script>
@@ -13,9 +18,10 @@
     <tr>
         <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
-        <td><b>{{ company.name }}</b><br/><small>{{ 'CUI: ' + company.cui }}</small><br/><small>{{ 'Nr. reg. ' + company.nr_reg }}</small></td>
-        <td>{{ company.locality + ', ' + company.county }}<br/><small>{{ company.address }}</small></td>
-        <td>{{ company.bank }}<br/><small>{{ 'IBAN: ' + company.iban }}</small></td>
+        <td>{{ contract.no + ' / '+ contract.date }}</td>
+        <td>{{ contract.expiration_date }}</td>
+        <td>{{ contract.provider }}</td>
+        <td>{{ contract.beneficiary }}</td>
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>

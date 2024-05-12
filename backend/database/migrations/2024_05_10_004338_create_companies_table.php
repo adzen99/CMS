@@ -18,7 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->unsignedBigInteger('id_user');
             $table->string('name');
             $table->text('address');
-            $table->unsignedBigInteger('id_city');
+            $table->unsignedBigInteger('id_locality');
             $table->unsignedBigInteger('id_county');
             $table->string('cui');
             $table->string('nr_reg');

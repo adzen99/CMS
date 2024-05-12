@@ -5,6 +5,7 @@ import Login from '../components/view/Login.vue'
 import Invoices from '../components/view/Invoices.vue'
 import Appendicies from '../components/view/Appendicies.vue'
 import MyAccount from '../components/view/MyAccount.vue'
+import Contracts from '../components/view/Contracts.vue'
 
 const routes = [
     {
@@ -31,6 +32,11 @@ const routes = [
         path: '/myaccount',
         name: 'MyAccount',
         component: MyAccount
+    },
+    {
+        path: '/contracts',
+        name: 'Contracts',
+        component: Contracts
     }
 ]
 

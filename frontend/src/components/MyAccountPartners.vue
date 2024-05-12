@@ -1,59 +1,57 @@
 <template>
     <div class="container">
             <div class="d-flex info-card">
-                <h5>The list with all your companies</h5>
-                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new company</button>
+                <h5>The list with all your partners</h5>
+                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new partner</button>
             </div>
             <section>
                 <div class="mb-15px">
-                    <span><b>{{ companiesNumber }} in total</b></span>
+                    <span><b>{{ partnersNumber }} in total</b></span>
                 </div>
-            <table class="table">
+                <table class="table">
                     <thead>
                         <tr>
                             <th><input type="checkbox" /></th>
                             <th>#</th>
                             <th>Name</th>
                             <th>Address</th>
-                            <th>Bank</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <Company v-for="(company, k) in companies" :company="company" :key="company.key" :no="k + 1" />
+                        <Partner v-for="(partner, k) in partners" :partner="partner" :key="partner.key" :no="k + 1" />
                     </tbody>
                 </table>
             </section>
-            <AddCompanyModal :data="addCompanyModalOpen" @hidden-modal="addCompanyModalOpen=false"/>
+            <AddPartnerModal :data="addPartnerModalOpen" @hidden-modal="addPartnerModalOpen=false"/>
         </div>
 </template>
 
 <script>
-import Company from "./Company.vue"
-    import AddCompanyModal from "./modals/AddCompanyModal.vue";
+    import Partner from "./Partner.vue"
+    import AddPartnerModal from "./modals/AddPartnerModal.vue"
     export default {
-        components : { Company, AddCompanyModal },
+        components : { Partner, AddPartnerModal },
        async mounted() {
-            fetch("http://localhost:8000/api/getMyCompanies/" + this.$store.state.user.id)
+            fetch("http://localhost:8000/api/getMyPartners/" + this.$store.state.user.id)
             .then(response => {
                 return response.json()
             }).then(data => {
                 console.log(data)
-                this.companiesNumber = data.countMyCompanies
-                this.companies = data.myCompanies
+                this.partnersNumber = data.countMyPartners
+                this.partners = data.myPartners
             }).catch(e => { console.log(e) })
         },
         data(){
             return {
-                companies: {},
-                companiesNumber: 0,
-                addCompanyModalOpen: false,
+                partners: {},
+                partnersNumber: 0,
+                addPartnerModalOpen: false,
             }
         },
         methods: {
             openModal(){
-                console.log('here')
-                if(this.addCompanyModalOpen===false) this.addCompanyModalOpen = true;
+                if(this.addPartnerModalOpen===false) this.addPartnerModalOpen = true;
             }
         },
     }
