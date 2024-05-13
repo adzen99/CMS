@@ -35,6 +35,7 @@ import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import { faHandshake } from '@fortawesome/free-solid-svg-icons'
 import { faFileContract } from '@fortawesome/free-solid-svg-icons'
+import { faTableList } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCircleUser)
 library.add(faCalendarDays)
@@ -58,6 +59,7 @@ library.add(faFloppyDisk);
 library.add(faRightToBracket);
 library.add(faHandshake);
 library.add(faFileContract);
+library.add(faTableList);
 
 axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true
 axios.defaults.withCredentials = true

@@ -1,29 +1,10 @@
-<script>
-    import Invoice from "../Invoice.vue"
-    import Topbar from "./Topbar.vue"
-    export default {
-        components : { Topbar, Invoice},
-        mounted(){
-        },
-        data(){
-            return {
-                invoices : [
-                    {id:1, no: 1323, date: '2024-01-01', contract: '1 of 2024-01-01', value: '2234.24 RON'},
-                    {id:2, no: 22, date: '2024-01-01', contract: '1 of 2024-01-01', value: '9551.24 RON'}
-                ],
-                invoicesNumber : 2,
-            }
-        }
-    }
-</script>
-
 <template>
     <div class="w-100 background-contrast">
         <Topbar/>
         <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with the invoices</h5>
-                <button type="button" class="btn btn-warning"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new invoice</button>
+                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new invoice</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -45,9 +26,43 @@
                     </tbody>
                 </table>
             </section>
+            <AddInvoiceModal :data="addInvoiceModalOpen" @hidden-modal="addInvoiceModalOpen=false"/>
         </div>
     </div>
 </template>
+
+<script>
+    import Invoice from "../Invoice.vue"
+    import Topbar from "./Topbar.vue"
+    import AddInvoiceModal from "../modals/AddInvoiceModal.vue"
+
+    export default {
+        components : { Topbar, Invoice, AddInvoiceModal},
+        mounted(){
+        },
+        data(){
+            return {
+                invoices : {},
+                invoicesNumber : 0,
+                addInvoiceModalOpen: false,
+            }
+        },
+        mounted(){
+            // fetch("http://localhost:8000/api/getMyInvoices/" + this.$store.state.user.id)
+            // .then(response => {
+            //     return response.json()
+            // }).then(data => {
+            //     this.invoices = data.myInvoices
+            //     this.invoicesNumber = data.countMyInvoices
+            // }).catch(e => { console.log(e) })
+        },
+        methods: {
+            openModal(){
+                if(this.addInvoiceModalOpen===false) this.addInvoiceModalOpen = true;
+            }
+        }
+    }
+</script>
 
 <style scoped>
     section table{

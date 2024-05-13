@@ -1,32 +1,52 @@
-<script>
-    export default {
-        mounted(){
-        },
-        props: {
-            appendix: Object,
-        },
-        computed: {
-            appendixToShow: function(){
-                delete this.appendix['id']
-                return this.appendix
-            }
-        }
-    }
-</script>
-
 <template>
     <tr>
         <td><input type="checkbox" /></td>
-        <td v-for="(value, key) in appendixToShow">{{ value }}</td>
+        <td>{{ no }}</td>
+        <td>{{ appendix.series + appendix.no }}</td>
+        <td>{{ appendix.date }}</td>
+        <td>{{ appendix.no_contract + ' from ' + appendix.contract_date }}</td>
+        <td>{{ appendix.value + ' ' + appendix.currency }}</td>
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-file-pdf" /></button>
+                <button type="button" class="btn btn-info" @click="openModal()"><font-awesome-icon icon="fa-solid fa-table-list" /></button>
                 <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
+    <AddAppendixItemModal :appendix="appendix" :data="addAppendixItemModalOpen" @hidden-modal="addAppendixItemModalOpen=false"/>
 </template>
+
+<script>
+    import AddAppendixItemModal from "./modals/AddAppendixItemModal.vue"
+
+    export default {
+        components : {AddAppendixItemModal},
+        props: {
+            appendix: Object,
+            no: Number,
+        },
+        data() {
+            return {
+                addAppendixItemModalOpen: false,
+            }
+        },
+        mounted(){
+            var date = new Date(this.appendix.date)
+            this.appendix.date = date.toLocaleDateString()
+
+            date = new Date(this.appendix.contract_date)
+            this.appendix.contract_date = date.toLocaleDateString()
+        },
+        methods: {
+            openModal(){
+                this.addAppendixItemModalOpen = true
+            }
+        }
+        
+    }
+</script>
 
 <style scoped>
     .inline-spacing {

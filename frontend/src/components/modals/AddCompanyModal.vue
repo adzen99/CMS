@@ -85,8 +85,10 @@
             }
         },
         watch: {
-            data(_, __) {
-                this.getData()
+            data(oldValue, newValue) {
+                if(oldValue && !newValue){
+                    this.getData()
+                }
             }
         },
         methods: {

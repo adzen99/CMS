@@ -21,6 +21,7 @@ class CreateAppendiciesTable extends Migration
             $table->unsignedBigInteger('id_provider');
             $table->unsignedBigInteger('id_beneficiary');
             $table->unsignedBigInteger('id_contract');
+            $table->unsignedBigInteger('id_invoice');
             $table->string('currency');
             $table->decimal('value')->default(0);
             $table->decimal('vat')->default(0);

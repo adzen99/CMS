@@ -17,10 +17,4 @@ class Appendix extends Model
      * @var string
      */
     protected $table = 'appendicies';
-
-    protected $guarded = [
-        'value',
-        'vat',
-        'vat_percentage'
-    ];
 }

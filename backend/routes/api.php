@@ -39,5 +39,8 @@ Route::middleware('cors')->group(function(){
     Route::get('getMyContracts/{id_user}', [ContractController::class, 'getMyContracts']);
 
     Route::post('addAppendix', [AppendixController::class, 'add']);
+    Route::get('getMyAppendicies/{id_user}', [AppendixController::class, 'getMyAppendicies']);
+    Route::get('getAppendiciesForInvoices/{id_user}', [AppendixController::class, 'getAppendiciesForInvoices']);
+
 });
 

@@ -14,15 +14,16 @@
                     <thead>
                         <tr>
                             <th><input type="checkbox" /></th>
-                            <th>No.</th>
+                            <th>#</th>
+                            <th>Series / No.</th>
                             <th>Date</th>
                             <th>Contract</th>
                             <th>Value</th>
-                            <th>Actions</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <Appendix v-for="appendix in appendicies" :appendix="appendix" :key="appendix.id" />
+                        <Appendix v-for="(appendix, k) in appendicies" :appendix="appendix" :key="appendix.id" :no="k + 1" />
                     </tbody>
                 </table>
             </section>
@@ -37,18 +38,28 @@
     import AddAppendixModal from "../modals/AddAppendixModal.vue"
 
     export default {
-        components : { Topbar, Appendix, AddAppendixModal},
+        components : {Topbar, Appendix, AddAppendixModal},
         data(){
             return {
                 appendicies : {},
                 appendiciesNumber : 0,
                 addAppendixModalOpen: false,
+                addAppendixItemModalOpen: false,
             }
+        },
+        mounted(){
+            fetch("http://localhost:8000/api/getMyAppendicies/" + this.$store.state.user.id)
+            .then(response => {
+                return response.json()
+            }).then(data => {
+                this.appendicies = data.myAppendicies
+                this.appendiciesNumber = data.countMyAppendicies
+            }).catch(e => { console.log(e) })
         },
         methods: {
             openModal(){
-                if(this.addAppendixModalOpen===false) this.addAppendixModalOpen = true;
-            }
+                this.addAppendixModalOpen = true
+            },
         },
     }
 </script>

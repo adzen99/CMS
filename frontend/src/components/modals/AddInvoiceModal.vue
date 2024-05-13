@@ -4,38 +4,56 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5">Add a contract</h1>
+                        <h1 class="modal-title fs-5">Add an invoice</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="add-contract-form">
                             <div class="row">
                                 <div class="mb-3 col-4">
+                                    <label for="no_input" class="form-label">Series</label>
+                                    <input name="series" type="text" class="form-control">
+                                </div>
+                                <div class="mb-3 col-4">
                                     <label for="no_input" class="form-label">No.</label>
                                     <input name="no" type="text" class="form-control">
                                 </div>
                                 <div class="mb-3 col-4">
-                                    <label for="date_input" class="form-label">Date</label>
-                                    <input name="date" type="date" class="form-control">
+                                    <label for="currency_input" class="form-label">Currency</label>
+                                    <select name="currency" class="form-select">
+                                        <option value="EUR">EUR</option>
+                                        <option value="RON" selected>RON</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-4">
-                                    <label for="expiration_date_input" class="form-label">Expiration date</label>
-                                    <input name="expiration_date" type="date" class="form-control">
+                                    <label for="date_input" class="form-label">Date</label>
+                                    <input name="date" type="date" value="" class="form-control">
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="due_date_input" class="form-label">Due date</label>
+                                    <input name="due_date" type="date" value="" class="form-control">
+                                </div>
+                                <div class="mb-3 col-4">
+                                    <label for="appendix_input" class="form-label">Appendix</label>
+                                    <select name="id_appendix" class="form-select">
+                                        <option value="0" selected>Select an appendix</option>
+                                        <option v-for="opt in optionsAppendix" :value="opt.id">{{ opt.series + opt.no + ' from ' + opt.date }}</option>
+                                    </select>
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="provider_input" class="form-label">Provider</label>
-                                    <select name="id_provider" class="form-select" aria-label="Default select example">
+                                    <select name="id_provider" class="form-select">
                                         <option value="0" selected>Select a provider</option>
                                         <option v-for="opt in optionsProvider" :value="opt.id">{{ opt.name }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="beneficiary_input" class="form-label">Beneficiary</label>
-                                    <select name="id_beneficiary" class="form-select" aria-label="Default select example">
+                                    <select name="id_beneficiary" class="form-select">
                                         <option value="0" selected>Select a beneficiary</option>
                                         <option v-for="opt in optionsBeneficiary" :value="opt.id">{{ opt.name }}</option>
                                     </select>
-                                </div>
+                                </div>                               
                             </div>
                         </form>               
                     </div>
@@ -62,7 +80,8 @@
             return {
                 form : { loaded: false },
                 optionsProvider: null,
-                optionsBeneficiary: null
+                optionsBeneficiary: null,
+                optionsAppendix: null,
             }
         },
         watch: {
@@ -90,6 +109,14 @@
                     this.optionsBeneficiary = data.beneficiaries
                 }).catch(e => { console.log(e) })
 
+                fetch("http://localhost:8000/api/getAppendiciesForInvoices/" + this.$store.state.user.id)
+                .then(response => {
+                    return response.json()
+                }).then(data => {
+                    console.log(data)
+                    this.optionsAppendix = data.appendicies
+                }).catch(e => { console.log(e) })
+
                 await nextTick( () => {
                     this.bsModal = new Modal(this.$refs.modal)
                     this.bsModal.show()
@@ -112,7 +139,7 @@
 
                 // validations
 
-                await fetch("http://127.0.0.1:8000/api/addContract", {
+                await fetch("http://127.0.0.1:8000/api/addInvoice", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

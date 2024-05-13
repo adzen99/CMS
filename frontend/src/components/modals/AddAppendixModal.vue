@@ -8,7 +8,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="add-contract-form">
+                        <form id="add-appendix-form">
                             <div class="row">
                                 <div class="mb-3 col-4">
                                     <label for="no_input" class="form-label">Series</label>
@@ -70,23 +70,8 @@
     export default {
         emits : ['hiddenModal'],
         props: {
-            data: [String, Boolean] 
+            data: Boolean 
         },
-        async mounted() {
-            fetch("http://localhost:8000/api/getMyCompaniesForProviders/" + this.$store.state.user.id)
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.optionsProvider = data.providers
-            }).catch(e => { console.log(e) })
-
-            fetch("http://localhost:8000/api/getMyPartnersForBeneficiaries/" + this.$store.state.user.id)
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.optionsBeneficiary = data.beneficiaries
-            }).catch(e => { console.log(e) })
-        }, 
         data() {
             return {
                 form : { loaded: false },
@@ -96,12 +81,28 @@
             }
         },
         watch: {
-            data(_, __) {
-                this.getData()
+            data(oldValue, newValue) {
+                if(oldValue && !newValue){
+                    this.getData()
+                }
             }
         },
         methods: {
             async getData() {
+                fetch("http://localhost:8000/api/getMyCompaniesForProviders/" + this.$store.state.user.id)
+                .then(response => {
+                    return response.json()
+                }).then(data => {
+                    this.optionsProvider = data.providers
+                }).catch(e => { console.log(e) })
+
+                fetch("http://localhost:8000/api/getMyPartnersForBeneficiaries/" + this.$store.state.user.id)
+                .then(response => {
+                    return response.json()
+                }).then(data => {
+                    this.optionsBeneficiary = data.beneficiaries
+                }).catch(e => { console.log(e) })
+
                 this.form.loaded = true
                 await nextTick( () => {
                     this.bsModal = new Modal(this.$refs.modal)
@@ -115,7 +116,7 @@
                 this.$emit('hiddenModal');
             },
             async modalSubmit(e) {
-                var form = document.getElementById('add-contract-form')
+                var form = document.getElementById('add-appendix-form')
                 var toSend = {}
                 for ( var i = 0; i < form.elements.length; i++ ) {
                     toSend[form.elements[i].name] = form.elements[i].value;
