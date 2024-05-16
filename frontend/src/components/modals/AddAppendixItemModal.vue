@@ -11,8 +11,9 @@
                         <div class="col-12 d-flex flex-row-reverse mb-0">
                             <button type="button" class="btn btn-warning" @click="countItems++"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add appendix item</button>
                         </div>
-                        <form id="add-appendix-item-form">                            
-                            <AppendixItemFields v-for="index in countItems" :key="index" :appendixItem="{}" :no="index" @remove-item="countItems--"></AppendixItemFields>
+                        <form id="add-appendix-item-form">      
+                            <AppendixItemFields v-for="(item, idx) in items" :key="idx" :item="item" :no="idx" @remove-item="countItems--"></AppendixItemFields>                      
+                            <!-- <AppendixItemFields v-for="index in countItems" :key="index" :item="{}" :no="index" @remove-item="countItems--"></AppendixItemFields> -->
                         </form>               
                     </div>
                     <div class="modal-footer justify-content-between">
@@ -41,6 +42,8 @@
             return {
                 form : { loaded: false },
                 countItems: 0,
+                countCurrent: 0,
+                items: {}
             }
         },
         watch: {
@@ -53,6 +56,17 @@
         methods: {
             async getData() {
                 this.form.loaded = true
+                this.countCurrent = this.countItems
+                console.log(this.appendix)
+                fetch("http://localhost:8000/api/getAppendixItems/" + this.appendix.id)
+                .then(response => {
+                    return response.json()
+                }).then(data => {
+                    console.log(data)
+                    this.countItems = data.countItems
+                    this.items = data.items
+                }).catch(e => { console.log(e) })
+
                 await nextTick( () => {
                     this.bsModal = new Modal(this.$refs.modal)
                     this.bsModal.show()
@@ -66,30 +80,29 @@
             },
             async modalSubmit(e) {
                 var form = document.getElementById('add-appendix-item-form')
-                var toSend = []
+                console.log(form)
+                var toSend = {}
                 for ( var i = 0; i < form.elements.length; i++ ) {
-                    if(form.elements[i].attributes.no){
-                        console.log(form.elements[i].attributes.no.value)
-                        // toSend[form.elements[i].attributes.no.value][form.elements[i].name] = form.elements[i].value;
-                    }
+                    toSend[form.elements[i].name] = form.elements[i].value;
                 }
-                console.log(form.elements)
+                toSend['id_appendix'] = this.appendix.id; 
                 console.log(toSend)
+                console.log(this.appendix)
 
                 // validations
 
-                // await fetch("http://127.0.0.1:8000/api/addAppendix", {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-                //     },
-                //     body: JSON.stringify(toSend)
-                // }).then(response => {
-                //     console.log(response)
-                // }).catch(e => {
-                //     console.log(e);
-                // })
+                await fetch("http://127.0.0.1:8000/api/addAppendixItem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                    },
+                    body: JSON.stringify(toSend)
+                }).then(response => {
+                    console.log(response)
+                }).catch(e => {
+                    console.log(e);
+                })
 
                 e.preventDefault();
                 this.bsModal.dispose();

@@ -93,11 +93,16 @@
     .card-body{
         background: var(--dark-alt-lighter) !important;
     }
+    input.form-control:not(.is-invalid), select.form-select:not(.is-invalid) {
+        border: var(--bs-border-width) solid var(--grey) !important;
+    }
+
     input.form-control, select.form-select {
         background: var(--dark) !important;
         color: var(--light) !important;
-        border: var(--bs-border-width) solid var(--grey) !important;
     }
+
+
     .input-group .input-group-text {
         color: var(--light) !important;
         background: var(--dark-alt) !important;

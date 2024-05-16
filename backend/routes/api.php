@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppendixController;
+use App\Http\Controllers\AppendixItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +43,9 @@ Route::middleware('cors')->group(function(){
     Route::get('getMyAppendicies/{id_user}', [AppendixController::class, 'getMyAppendicies']);
     Route::get('getAppendiciesForInvoices/{id_user}', [AppendixController::class, 'getAppendiciesForInvoices']);
 
+    Route::post('addAppendixItem', [AppendixItemController::class, 'add']);
+    Route::get('getAppendixItems/{id_appendix}', [AppendixItemController::class, 'getAppendixItems']);
+
+    
 });
 

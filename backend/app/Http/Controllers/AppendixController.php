@@ -18,7 +18,7 @@ class AppendixController extends Controller
 
     function getMyAppendicies(Request $request){
         $id_user = $request->route('id_user');
-        $myAppendicies = Appendix::select('appendicies.series AS series', 'appendicies.no AS no', 'appendicies.date AS date', 'appendicies.value as value', 'appendicies.currency AS currency', 'companies.name AS provider', 'partners.name AS beneficiary', 'contracts.no AS no_contract', 'contracts.date AS contract_date')
+        $myAppendicies = Appendix::select('appendicies.id AS id', 'appendicies.series AS series', 'appendicies.no AS no', 'appendicies.date AS date', 'appendicies.value as value', 'appendicies.currency AS currency', 'companies.name AS provider', 'partners.name AS beneficiary', 'contracts.no AS no_contract', 'contracts.date AS contract_date')
                         ->join('companies', 'companies.id', '=', 'appendicies.id_provider')
                         ->join('partners', 'partners.id', '=', 'appendicies.id_beneficiary')
                         ->join('contracts', 'contracts.id', '=', 'appendicies.id_contract')
