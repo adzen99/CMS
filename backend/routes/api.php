@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\ExchangeRateController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\UserController;
 
@@ -38,6 +39,7 @@ Route::middleware('cors')->group(function(){
 
     Route::post('addContract', [ContractController::class, 'add']);
     Route::get('getMyContracts/{id_user}', [ContractController::class, 'getMyContracts']);
+    Route::get('getContractsForAppendicies/{id_provider}/{id_beneficiary}', [ContractController::class, 'getContractsForAppendicies']);
 
     Route::post('addAppendix', [AppendixController::class, 'add']);
     Route::get('getMyAppendicies/{id_user}', [AppendixController::class, 'getMyAppendicies']);
@@ -46,6 +48,6 @@ Route::middleware('cors')->group(function(){
     Route::post('addAppendixItem', [AppendixItemController::class, 'add']);
     Route::get('getAppendixItems/{id_appendix}', [AppendixItemController::class, 'getAppendixItems']);
 
-    
+    Route::get('getExchangeRatesToday', [ExchangeRateController::class, 'getExchangeRatesToday']);
 });
 

@@ -37,7 +37,7 @@ class AppendixItemController extends Controller
     function getAppendixItems(Request $request){
         $id_appendix = $request->route('id_appendix');
         $items = AppendixItem::select('appendicies_items.id AS id', 'appendicies_items.description AS description', 'appendicies_items.vat_percentage AS vat_percentage', 'appendicies_items.uom AS uom', 'appendicies_items.quantity AS quantity', 'appendicies_items.unit_price AS unit_price')
-                        ->where(['appendicies_items.id_appendix' => $id_appendix])
+                        ->where('appendicies_items.id_appendix', $id_appendix)
                         ->get();
         $countItems = AppendixItem::where('id_appendix', $id_appendix)
                         ->count();

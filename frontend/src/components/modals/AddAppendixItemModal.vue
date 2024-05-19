@@ -57,12 +57,10 @@
             async getData() {
                 this.form.loaded = true
                 this.countCurrent = this.countItems
-                console.log(this.appendix)
                 fetch("http://localhost:8000/api/getAppendixItems/" + this.appendix.id)
                 .then(response => {
                     return response.json()
                 }).then(data => {
-                    console.log(data)
                     this.countItems = data.countItems
                     this.items = data.items
                 }).catch(e => { console.log(e) })

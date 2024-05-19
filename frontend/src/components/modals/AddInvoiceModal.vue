@@ -92,6 +92,9 @@
             }
         },
         methods: {
+            onChangeAppendix(event){
+                console.log(event.target.value)
+            },
             async getData() {
                 this.form.loaded = true
 

@@ -52,6 +52,7 @@
             .then(response => {
                 return response.json()
             }).then(data => {
+                console.log(data)
                 this.appendicies = data.myAppendicies
                 this.appendiciesNumber = data.countMyAppendicies
             }).catch(e => { console.log(e) })

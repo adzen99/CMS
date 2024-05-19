@@ -24,14 +24,14 @@
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="provider_input" class="form-label">Provider</label>
-                                    <select name="id_provider" class="form-select">
+                                    <select name="id_provider" class="form-select" v-model="id_provider" @change="onChangeSelect($event)">
                                         <option value="0" selected>Select a provider</option>
                                         <option v-for="opt in optionsProvider" :value="opt.id">{{ opt.name }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">
                                     <label for="beneficiary_input" class="form-label">Beneficiary</label>
-                                    <select name="id_beneficiary" class="form-select">
+                                    <select name="id_beneficiary" class="form-select" v-model="id_beneficiary" @change="onChangeSelect($event)">
                                         <option value="0" selected>Select a beneficiary</option>
                                         <option v-for="opt in optionsBeneficiary" :value="opt.id">{{ opt.name }}</option>
                                     </select>
@@ -40,7 +40,7 @@
                                     <label for="contract_input" class="form-label">Contract</label>
                                     <select name="id_contract" class="form-select">
                                         <option value="0" selected>Select a contract</option>
-                                        <option v-for="opt in optionsContract" :value="opt.id">{{ opt.name }}</option>
+                                        <option v-for="opt in optionsContract" :value="opt.id">{{ 'No. ' + opt.no + ' from ' + opt.date }}</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 col-6">
@@ -75,6 +75,8 @@
         data() {
             return {
                 form : { loaded: false },
+                id_provider: 0,
+                id_beneficiary: 0,
                 optionsProvider: null,
                 optionsBeneficiary: null,
                 optionsContract: null,
@@ -88,6 +90,22 @@
             }
         },
         methods: {
+            onChangeSelect(event){
+                var selectName = event.target.name
+                this.$data[selectName] = event.target.value
+
+                if(this.id_provider && this.id_beneficiary){
+                    fetch("http://localhost:8000/api/getContractsForAppendicies/" + this.id_provider + '/' + this.id_beneficiary)
+                    .then(response => {
+                        return response.json()
+                    }).then(data => {
+                        this.optionsContract = data.contracts
+                    }).catch(e => { console.log(e) })
+                }else{
+                    this.optionsContract = null
+                }
+
+            },
             async getData() {
                 fetch("http://localhost:8000/api/getMyCompaniesForProviders/" + this.$store.state.user.id)
                 .then(response => {
@@ -102,6 +120,15 @@
                 }).then(data => {
                     this.optionsBeneficiary = data.beneficiaries
                 }).catch(e => { console.log(e) })
+
+                if(this.id_provider && this.id_beneficiary){
+                    fetch("http://localhost:8000/api/getContractsForAppendicies/" + this.id_provider + '&' + this.id_beneficiary)
+                    .then(response => {
+                        return response.json()
+                    }).then(data => {
+                        this.optionsContract = data.contracts
+                    }).catch(e => { console.log(e) })
+                }
 
                 this.form.loaded = true
                 await nextTick( () => {
