@@ -2,7 +2,7 @@
     <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with all your companies</h5>
-                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new company</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addCompanyModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new company</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -24,21 +24,23 @@
                     </tbody>
                 </table>
             </section>
-            <AddCompanyModal :data="addCompanyModalOpen" @hidden-modal="addCompanyModalOpen=false"/>
+            <ModalForm :data-source="modalDataSource" @hide-modal="modalDataSource = false"/>
+
+            <!-- <AddCompanyModal :data="addCompanyModalOpen" @hidden-modal="addCompanyModalOpen=false"/> -->
         </div>
 </template>
 
 <script>
-import Company from "./Company.vue"
-    import AddCompanyModal from "./modals/AddCompanyModal.vue";
+    import Company from "./Company.vue"
+    import addCompany from "./modal/blueprints/addCompany.json"
+    import ModalForm from "./modal/ModalForm.vue";
     export default {
-        components : { Company, AddCompanyModal },
-       async mounted() {
+        components : { Company, ModalForm },
+        async mounted() {
             fetch("http://localhost:8000/api/getMyCompanies/" + this.$store.state.user.id)
             .then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data)
                 this.companiesNumber = data.countMyCompanies
                 this.companies = data.myCompanies
             }).catch(e => { console.log(e) })
@@ -47,15 +49,19 @@ import Company from "./Company.vue"
             return {
                 companies: {},
                 companiesNumber: 0,
-                addCompanyModalOpen: false,
+                modalDataSource: false,
             }
         },
         methods: {
-            openModal(){
-                console.log('here')
-                if(this.addCompanyModalOpen===false) this.addCompanyModalOpen = true;
+            openModalForm(source){
+                this.modalDataSource = source;
             }
         },
+        computed: {
+            addCompanyModal(){
+                return addCompany
+            }
+        }
     }
 </script>
 

@@ -1,19 +1,3 @@
-<script>
-    export default {
-        mounted(){
-            var date = new Date(this.contract.date)
-            this.contract.date = date.toLocaleDateString()
-
-            date = new Date(this.contract.expiration_date)
-            this.contract.expiration_date = date.toLocaleDateString()
-        },
-        props: {
-            contract: Object,
-            no: Number
-        },
-    }
-</script>
-
 <template>
     <tr>
         <td><input type="checkbox" /></td>
@@ -24,13 +8,40 @@
         <td>{{ contract.beneficiary }}</td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" class="btn btn-primary" @click="openEditModal"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
+    <EditContractModal :data="editContractModalOpen" @hidden-modal="editContractModalOpen=false" :contract="contract"/>
 </template>
+<script>
+    import EditContractModal from "./modals/EditContractModal.vue"
+    export default {
+        components : { EditContractModal },
+        props: {
+            contract: Object,
+            no: Number
+        },
+        mounted(){
+            var date = new Date(this.contract.date)
+            this.contract.date = date.toLocaleDateString()
 
+            date = new Date(this.contract.expiration_date)
+            this.contract.expiration_date = date.toLocaleDateString()
+        },
+        data(){
+            return {
+                editContractModalOpen: false
+            }
+        },
+        methods: {
+            openEditModal(){
+                this.editContractModalOpen = true;
+            }
+        }
+    }
+</script>
 <style scoped>
     .inline-spacing {
         display: flex;

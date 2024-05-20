@@ -3,7 +3,6 @@ import './style.css'
 import App from './App.vue'
 import router from './router'
 import globals from './globals'
-import axios from 'axios'
 import store from './store/store'
 
 import 'bootstrap'
@@ -61,19 +60,9 @@ library.add(faHandshake);
 library.add(faFileContract);
 library.add(faTableList);
 
-axios.defaults.headers.common['Access-Control-Allow-Credentials'] = true
-axios.defaults.withCredentials = true
-axios.defaults.headers.common['Access-Control-Allow-Headers'] = "Origin, X-Requested-With, Content-Type, Accept"
-axios.defaults.headers.common['Access-Control-Allow-Methods'] = "GET,PUT,POST,DELETE"
-axios.defaults.headers.common['Content-Type'] = "application/json"
-
-// axios.defaults.baseURL = '127.0.0.1:8000';
-
 const app = createApp(App)
 
 app.config.globalProperties.globals = globals
-
-app.config.globalProperties.axios = axios
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 

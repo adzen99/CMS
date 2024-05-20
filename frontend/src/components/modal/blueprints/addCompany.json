@@ -1,0 +1,12 @@
+{
+    "title": "Add a company",
+    "action" : "http://localhost:8000/addCompany",
+    "method" : "POST",
+    "buttons" : { "submit" : "Save changes", "close" : "Close" },
+    "modalSize" : "lg",
+    "elements" : [
+        { "name" : "name", "type":"text", "value": "", "label": "", "class":"col-md-6" },
+        { "name" : "address", "type":"text", "value": "", "label": "", "class":"col-md-6" },
+        { "name" : "address", "type":"text", "value": "", "label": "", "class":"col-md-6" }
+    ]
+}

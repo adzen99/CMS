@@ -38,6 +38,7 @@ Route::middleware('cors')->group(function(){
     Route::get('getMyPartnersForBeneficiaries/{id_user}', [PartnerController::class, 'getMyPartnersForBeneficiaries']);
 
     Route::post('addContract', [ContractController::class, 'add']);
+    Route::put('editContract', [ContractController::class, 'edit']);
     Route::get('getMyContracts/{id_user}', [ContractController::class, 'getMyContracts']);
     Route::get('getContractsForAppendicies/{id_provider}/{id_beneficiary}', [ContractController::class, 'getContractsForAppendicies']);
 

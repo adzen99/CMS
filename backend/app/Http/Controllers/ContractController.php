@@ -16,9 +16,23 @@ class ContractController extends Controller
         return ['ok' => 1];
     }
 
+    function edit(Request $request){
+        $input = $request->input();
+        $id = $input['id']; unset($input['id']);
+
+        if(Contract::where(['no' => $input['no'], 'id_provider' => $input['id_provider']])->exists()){
+            return ['ok' => 0, 'message' => 'A contract with the same number for the selected provider already exists!', 'fields' => ['no', 'id_provider']];
+        }else{
+            Contract::where('id', $id)->update($input);
+            return ['ok' => 1];
+        }
+
+        // $contract->save();
+    }
+
     function getMyContracts(Request $request){
         $id_user = $request->route('id_user');
-        $myContracts = Contract::select('contracts.no AS no', 'contracts.date AS date', 'contracts.expiration_date AS expiration_date', 'companies.name AS provider', 'partners.name AS beneficiary')
+        $myContracts = Contract::select('contracts.id AS id', 'contracts.no AS no', 'contracts.date AS date', 'contracts.expiration_date AS expiration_date', 'contracts.id_provider AS id_provider', 'companies.name AS provider', 'contracts.id_beneficiary AS id_beneficiary', 'partners.name AS beneficiary')
                         ->join('companies', 'companies.id', '=', 'contracts.id_provider')
                         ->join('partners', 'partners.id', '=', 'contracts.id_beneficiary')
                         ->where('companies.id_user', $id_user)
