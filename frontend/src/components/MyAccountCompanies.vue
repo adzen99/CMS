@@ -25,8 +25,6 @@
                 </table>
             </section>
             <ModalForm :data-source="modalDataSource" @hide-modal="modalDataSource = false"/>
-
-            <!-- <AddCompanyModal :data="addCompanyModalOpen" @hidden-modal="addCompanyModalOpen=false"/> -->
         </div>
 </template>
 

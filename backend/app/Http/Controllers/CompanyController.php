@@ -10,10 +10,19 @@ class CompanyController extends Controller
 {
     function add(Request $request){
         $input = $request->input();
-        $company = new Company;
-        foreach($input as $key => $value){ $company->$key = $value; }
-        $company->save();
-        return ['ok' => 1];
+        $response = ['ok' => 0];
+        if(Company::where('cui', $input['cui'])->exists()){
+            $response['errors'][] = [
+                'name' => 'cui',
+                'errorMessage' => 'A company with the same CUI already exists!',
+            ];
+        }else{
+            $company = new Company;
+            foreach($input as $key => $value){ $company->$key = $value; }
+            $company->save();
+            $response = ['ok' => 1, 'message' => 'The company has been added successfully!'];
+        }
+        return $response;
     }
     function getMyCompanies(Request $request){
         $id_user = $request->route('id_user');

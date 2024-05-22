@@ -2,7 +2,7 @@
     <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with all your partners</h5>
-                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new partner</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addPartnerModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new partner</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -23,15 +23,16 @@
                     </tbody>
                 </table>
             </section>
-            <AddPartnerModal :data="addPartnerModalOpen" @hidden-modal="addPartnerModalOpen=false"/>
+            <ModalForm :data-source="modalDataSource" @hide-modal="modalDataSource = false"/>
         </div>
 </template>
 
 <script>
     import Partner from "./Partner.vue"
-    import AddPartnerModal from "./modals/AddPartnerModal.vue"
+    import addPartner from "./modal/blueprints/addPartner.json"
+    import ModalForm from "./modal/ModalForm.vue";
     export default {
-        components : { Partner, AddPartnerModal },
+        components : { Partner, ModalForm },
        async mounted() {
             fetch("http://localhost:8000/api/getMyPartners/" + this.$store.state.user.id)
             .then(response => {
@@ -45,14 +46,19 @@
             return {
                 partners: {},
                 partnersNumber: 0,
-                addPartnerModalOpen: false,
+                modalDataSource: false,
             }
         },
         methods: {
-            openModal(){
-                if(this.addPartnerModalOpen===false) this.addPartnerModalOpen = true;
+            openModalForm(source){
+                this.modalDataSource = source;
             }
         },
+        computed: {
+            addPartnerModal(){
+                return addPartner
+            }
+        }
     }
 </script>
 

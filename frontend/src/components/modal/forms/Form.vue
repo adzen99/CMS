@@ -7,8 +7,8 @@
 <script>
 import * as FormComponents from '../form-elements'
 export default {
-    expose: [ 'formSubmitted' ],
-    emits : ['submitted'],
+    expose: [ 'formSubmitted'],
+    emits : ['submitted', 'triggerAlertDanger'],
     props: {
         dataSource : [String, Object, Boolean]
     },
@@ -66,35 +66,78 @@ export default {
                 }
             })
         },
+        removeIsInvalid(name){
+            this.removeIsInvalid(name)
+        },
+        checkRequired(){
+            var result = false
+            for(const key in this.formData){
+                if(!this.formData[key]){
+                    this.setIsInvalid(key)
+                    if(!result){ result = true }
+                }
+            }
+            if(result){
+                this.$emit('triggerAlertDanger', 'Please fill the highlighted fields.')
+            }
+            return result
+        },
         checkChanged(name){
+            this.removeIsInvalid(name)
+            this.$emit('triggerAlertDanger', '')
             this.checkDependencies(name)
             return
         },
         setOptions(name, options) {
             this.formElements.forEach(e => {
-                console.log(e)
                 if (e.name!=name) return
                 e.options = options
             })
         },
-        formSubmitted() {
+        setIsInvalid(name) {
+            this.formElements.forEach(e => {
+                if (e.name!=name) return
+                e.isInvalid = true
+            })
+        },
+        setErrors(name, errorMessage){
+            this.formElements.forEach(e => {
+                if (e.name!=name) return
+                e.isInvalid = true
+                e.feedback = errorMessage
+            })
+        },
+        removeIsInvalid(name) {
+            this.formElements.forEach(e => {
+                if (e.name!=name) return
+                e.isInvalid = false
+                e.feedback = ''
+            })
+        },
+        async formSubmitted() {
             if (this.isWorking) return
-            console.log(this.formData)
-            this.$emit('submitted')
-            // this.isWorking = true
-            // postJson( this.form.action, this.formData ).then((response) => {
-            //     this.isWorking = false
-            //     if(response.error == 0){
-            //         this.$emit('submitted', { status: true, message: response.message })
-            //     }else{
-            //         response.errorElements.forEach((e) => {
-            //             this.setErrors(e.name, e.errorMessage)
-            //         })
-            //     }
-            // }).catch((err) => {
-            //     this.isWorking = false
-            //     this.$emit('submitted', { status: false, response: { errorMessage: err.message } })
-            // })    
+            if(!this.checkRequired()){
+                this.isWorking = true
+                await fetch(this.form.action, {
+                    method: this.form.method,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                    },
+                    body: JSON.stringify(this.formData)
+                }).then(response => {
+                    this.isWorking = false
+                    return response.json()
+                }).then(data =>{
+                    if(data.ok){
+                        this.$emit('submitted')
+                    }else{
+                        data.errors.forEach((e) => {
+                            this.setErrors(e.name, e.errorMessage)
+                        })
+                    }
+                }).catch(e => { console.log(e); })
+            }
         }
     },
     computed: {
@@ -106,7 +149,10 @@ export default {
         },
         formData() {
             let d = {}
-            this.formElements.forEach((e) => { if('value' in e) d[e.name] = e.value })
+            this.formElements.forEach((e) => {
+                if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
+                if('value' in e){ d[e.name] = e.value }
+            })
             return d
         },
     }

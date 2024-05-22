@@ -10,10 +10,21 @@ class PartnerController extends Controller
 {
     function add(Request $request){
         $input = $request->input();
-        $partner = new Partner;
-        foreach($input as $key => $value){ $partner->$key = $value; }
-        $partner->save();
-        return ['ok' => 1];
+        $response = ['ok' => 0];
+
+        if(Partner::where('cui', $input['cui'])->exists()){
+            $response['errors'][] = [
+                'name' => 'cui',
+                'errorMessage' => 'A partner with the same CUI already exists!',
+            ];
+        }else{
+            $partner = new Partner;
+            foreach($input as $key => $value){ $partner->$key = $value; }
+            $partner->save();
+            $response = ['ok' => 1, 'message' => 'The partner has been added successfully!'];
+        }
+        
+        return $response;
     }
 
     function getMyPartners(Request $request){

@@ -1,8 +1,8 @@
 {
-    "title": "Add a company",
-    "action" : "http://localhost:8000/api/addCompany",
+    "title": "Add a partner",
+    "action" : "http://localhost:8000/api/addPartner",
     "method" : "POST",
-    "buttons" : { "submit" : "Add company", "close" : "Close" },
+    "buttons" : { "submit" : "Add partner", "close" : "Close" },
     "modalSize" : "lg",
     "alertDanger": "",
     "elements" : [
@@ -12,8 +12,6 @@
         { "name" : "id_locality", "type":"select", "value": "", "label": "Locality", "class":"col-md-6", "required": true},
         { "name" : "cui", "type":"text", "value": "", "label": "CUI", "class":"col-md-6", "required": true},
         { "name" : "nr_reg", "type":"text", "value": "", "label": "Nr. reg.", "class":"col-md-6", "required": true},
-        { "name" : "id_bank", "type":"select", "value": "", "label": "Bank", "class":"col-md-6", "required": true, "optionsAction" : "http://localhost:8000/api/getBanksOptions" },
-        { "name" : "iban", "type":"text", "value": "", "label": "IBAN", "class":"col-md-6", "required": true },
         { "name" : "id_user", "type":"hidden", "value": "", "label": ""}
     ],
     "dependencies": [

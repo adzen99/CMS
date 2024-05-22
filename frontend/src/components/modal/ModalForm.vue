@@ -7,8 +7,12 @@
                         <h1 class="modal-title fs-5">{{ form?.title }}</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <Form :data-source="form" @submitted="submitted" ref="form"/>                       
+                    <div class="modal-body"> 
+                        <div v-if="form.alertDanger" class="alert alert-danger" role="alert">
+                            <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-exclamation" />
+                            {{ form?.alertDanger }}
+                        </div>
+                        <Form :data-source="form" @submitted="submitted" @trigger-alert-danger="triggerAlertDanger" ref="form"/>                       
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ form?.buttons?.close || 'Close' }}</button>
@@ -79,6 +83,9 @@
                 //     // this.$notify({ title: 'Error', text: 'Eroare la comunicarea cu serverul!', type: 'error' })
                 // }
             }, 
+            triggerAlertDanger(message){
+                this.form.alertDanger = message
+            }
         },
         computed: {
             modalSize(){
