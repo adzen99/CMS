@@ -1,9 +1,11 @@
 <template>
     <div :class="elementClass">
       <label v-if="formElement.label" class="form-label">{{ formElement.label }}</label>
-      <input :name="formElement.name" :type="formElement.type" :placeholder="formElement.placeholder" :class="{ 'form-control' : true, 'is-valid' : formElement.isValid, 'is-invalid': formElement.isInvalid }" v-model="value">
-      <div v-if="formElement.isValid && formElement.feedback" class="valid-feedback">{{ formElement.feedback }}</div>
-      <div v-if="formElement.isInvalid && formElement.feedback" class="invalid-feedback">{{ formElement.feedback }}</div>
+      <div class="input-group">
+        <input :name="formElement.name" :type="formElement.type" :placeholder="formElement.placeholder" :class="{ 'form-control' : true, 'is-valid' : formElement.isValid, 'is-invalid': formElement.isInvalid }" v-model="value">
+        <div v-if="formElement.isValid && formElement.feedback" class="valid-feedback">{{ formElement.feedback }}</div>
+        <div v-if="formElement.isInvalid && formElement.feedback" class="invalid-feedback">{{ formElement.feedback }}</div>
+      </div>
     </div>
   </template>
   <script>

@@ -1,5 +1,5 @@
 import InputText from './InputText.vue';
-// import SelectElement from './Select.vue';
+import SelectInput from './Select.vue';
 // import InputHidden from './InputHidden.vue';
 // import InputCheckbox from './InputCheckbox.vue';
 // import Section from './Section.vue';
@@ -9,7 +9,7 @@ import InputText from './InputText.vue';
 
 export {
     InputText,
-    // SelectElement,
+    SelectInput,
     // InputHidden,
     // InputCheckbox,
     // Section,

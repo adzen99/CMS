@@ -37,7 +37,6 @@
             .then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data)
                 this.partnersNumber = data.countMyPartners
                 this.partners = data.myPartners
             }).catch(e => { console.log(e) })

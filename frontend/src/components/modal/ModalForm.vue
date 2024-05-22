@@ -8,11 +8,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- <Form :data-source="form" @submitted="submitted" ref="form"/>                        -->
+                        <Form :data-source="form" @submitted="submitted" ref="form"/>                       
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ form?.buttons?.close || 'Close' }}</button>
-                        <!-- <button type="button" class="btn btn-primary" @click="this.$refs.form.formSubmitted">{{ form?.buttons?.submit || 'Save' }}</button> -->
+                        <button type="button" class="btn btn-primary" @click="this.$refs.form.formSubmitted">{{ form?.buttons?.submit || 'Save' }}</button>
                     </div>
                 </div>
             </div>
@@ -44,10 +44,11 @@
                         this.form = value
                         this.formLoaded = true
                         this.showModal()
-                    }else{
-                        this.form = {}
-                        this.formLoaded = false
                     }
+                    // }else{
+                    //     this.form = {}
+                    //     this.formLoaded = false
+                    // }
                 },
                 immediate: true
             }
@@ -70,6 +71,14 @@
                 this.formLoaded = false                
                 this.$emit('hideModal')
             },
+            submitted(e) {
+                this.hideModal()
+                // if (e.status) {
+                //     // this.$swal('Success', e.message ? e.message : 'Forma trimisa cu succces!', 'success')
+                // } else {
+                //     // this.$notify({ title: 'Error', text: 'Eroare la comunicarea cu serverul!', type: 'error' })
+                // }
+            }, 
         },
         computed: {
             modalSize(){

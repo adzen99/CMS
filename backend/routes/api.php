@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\AppendixController;
 use App\Http\Controllers\AppendixItemController;
+use App\Http\Controllers\BankController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContractController;
+use App\Http\Controllers\CountyController;
 use App\Http\Controllers\ExchangeRateController;
+use App\Http\Controllers\LocalityController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\UserController;
 
@@ -50,5 +53,12 @@ Route::middleware('cors')->group(function(){
     Route::get('getAppendixItems/{id_appendix}', [AppendixItemController::class, 'getAppendixItems']);
 
     Route::get('getExchangeRatesToday', [ExchangeRateController::class, 'getExchangeRatesToday']);
+
+    Route::get('getCountiesOptions', [CountyController::class, 'getCountiesOptions']);
+
+    Route::get('getOptionsLocalitiesOfCounty/{id_county}', [LocalityController::class, 'getOptionsLocalitiesOfCounty']);
+
+    Route::get('getBanksOptions', [BankController::class, 'getBanksOptions']);
+
 });
 
