@@ -3,7 +3,7 @@
           <label v-if="formElement.label" class="form-label">{{ formElement.label }}</label>
           <div class="input-group">
             <select :class="{ 'form-select' : true, 'is-valid' : formElement.isValid, 'is-invalid': formElement.isInvalid }" :name="formElement.name" v-model="value">
-                <option v-for="(opt, index) in options" :value="opt.value" :key="opt.value">{{ opt.text }}</option>
+                <option v-for="(opt, index) in options" :value="opt.value" :selected="opt.selected" :key="opt.value">{{ opt.text }}</option>
             </select>
             <div v-if="formElement.isValid && formElement.feedback" class="valid-feedback">{{ formElement.feedback }}</div>
             <div v-if="formElement.isInvalid && formElement.feedback" class="invalid-feedback">{{ formElement.feedback }}</div>        
@@ -15,13 +15,16 @@
     emits: ['update:modelValue', 'changed'],
     props: {
       formElement: Object,
+      optionsActionParamsValues: Object,
       modelValue : {
         default: ""
       }         
     },
     async mounted(){
       if(this.formElement.optionsAction){
-        await fetch(this.formElement.optionsAction)
+        var params = this?.optionsActionParamsValues || []
+        params = params.join('/')
+        await fetch(this.formElement.optionsAction + params)
         .then(response => {
             return response.json()
         }).then(data => {
@@ -31,7 +34,7 @@
         }).catch(e => { console.log(e) })
       }
     },
-      computed: {
+    computed: {
       value: {
         get() {
           return this.modelValue

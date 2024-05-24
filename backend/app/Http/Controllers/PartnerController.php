@@ -40,9 +40,9 @@ class PartnerController extends Controller
 
     function getMyPartnersForBeneficiaries(Request $request){
         $id_user = $request->route('id_user');
-        $beneficiaries = Partner::select('partners.id AS id', 'partners.name AS name')
+        $options = Partner::select('partners.id AS value', 'partners.name AS text')
                         ->where('id_user', $id_user)
                         ->get();
-        return ['ok' => 1, 'beneficiaries' => $beneficiaries];        
+        return ['ok' => 1, 'options' => $options];        
     }
 }

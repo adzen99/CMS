@@ -4,7 +4,7 @@
         <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with the contracts</h5>
-                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new contract</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addContractModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new contract</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -27,7 +27,7 @@
                     </tbody>
                 </table>
             </section>
-            <AddContractModal :data="addContractModalOpen" @hidden-modal="addContractModalOpen=false"/>
+            <ModalForm :data-source="modalDataSource" @hide-modal="modalDataSource = false"/>
         </div>
     </div>
 </template>
@@ -35,9 +35,11 @@
 <script>
     import Contract from "../Contract.vue"
     import Topbar from "./Topbar.vue"
-    import AddContractModal from "../modals/AddContractModal.vue"
+    import addContract from "../modal/blueprints/addContract.json"
+    import ModalForm from "../modal/ModalForm.vue"
+
     export default {
-        components : { Topbar, Contract, AddContractModal},
+        components : { Topbar, Contract, ModalForm},
         mounted(){
             fetch("http://localhost:8000/api/getMyContracts/" + this.$store.state.user.id)
             .then(response => {
@@ -51,14 +53,19 @@
             return {
                 contracts : {},
                 contractsNumber : 0,
-                addContractModalOpen: false,
+                modalDataSource: false,
             }
         },
         methods: {
-            openModal(){
-                if(this.addContractModalOpen===false) this.addContractModalOpen = true;
+            openModalForm(source){
+                this.modalDataSource = source;
             }
         },
+        computed: {
+            addContractModal(){
+                return addContract
+            }
+        }
     }
 </script>
 

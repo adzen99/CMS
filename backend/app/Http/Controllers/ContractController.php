@@ -10,10 +10,20 @@ class ContractController extends Controller
 {
     function add(Request $request){
         $input = $request->input();
-        $contract = new Contract;
-        foreach($input as $key => $value){ $contract->$key = $value; }
-        $contract->save();
-        return ['ok' => 1];
+        unset($input['id_user']);
+        $response = ['ok' => 0];
+        if(Contract::where(['no' => $input['no'], 'id_provider' => $input['id_provider'], 'id_beneficiary' => $input['id_beneficiary']])->exists()){
+            $response['generalError'] = [
+                'names' => ['no', 'id_provider', 'id_beneficiary'],
+                'alertDanger' => 'A contract with the same number already exists for the selected provider and beneficiary!',
+            ];
+        }else{
+            $contract = new Contract;
+            foreach($input as $key => $value){ $contract->$key = $value; }
+            $contract->save();
+            $response = ['ok' => 1, 'message' => 'The contract has been added successfully!'];
+        }
+        return $response;
     }
 
     function edit(Request $request){

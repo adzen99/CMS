@@ -37,9 +37,9 @@ class CompanyController extends Controller
     }
     function getMyCompaniesForProviders(Request $request){
         $id_user = $request->route('id_user');
-        $providers = Company::select('companies.id AS id', 'companies.name AS name')
+        $options = Company::select('companies.id AS value', 'companies.name AS text')
                         ->where('id_user', $id_user)
                         ->get();
-        return ['ok' => 1, 'providers' => $providers];        
+        return ['ok' => 1, 'options' => $options];        
     }
 }

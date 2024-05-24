@@ -48,11 +48,10 @@
                         this.form = value
                         this.formLoaded = true
                         this.showModal()
+                    }else{
+                        this.form = {}
+                        this.formLoaded = false
                     }
-                    // }else{
-                    //     this.form = {}
-                    //     this.formLoaded = false
-                    // }
                 },
                 immediate: true
             }

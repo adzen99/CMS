@@ -1,5 +1,18 @@
-<script setup>
+<script>
     import Sidebar from "./components/view/Sidebar.vue"
+
+    export default {
+    components: { Sidebar },
+    name: 'App',
+    watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = 'CMS | ' + to.name || 'CMS'
+            }
+        },
+    }
+};
 </script>
 
 <template>

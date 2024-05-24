@@ -4,7 +4,7 @@
         <div class="container">
             <div class="d-flex info-card">
                 <h5>The list with the appendicies</h5>
-                <button type="button" class="btn btn-warning" @click="openModal()"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new appendix</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addAppendixModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new appendix</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -27,7 +27,7 @@
                     </tbody>
                 </table>
             </section>
-            <AddAppendixModal :data="addAppendixModalOpen" @hidden-modal="addAppendixModalOpen=false"/>
+            <ModalForm :data-source="modalDataSource" @hide-modal="modalDataSource = false"/>
         </div>
     </div>
 </template>
@@ -35,16 +35,16 @@
 <script>
     import Appendix from "../Appendix.vue"
     import Topbar from "./Topbar.vue"
-    import AddAppendixModal from "../modals/AddAppendixModal.vue"
+    import addAppendix from "../modal/blueprints/addAppendix.json"
+    import ModalForm from "../modal/ModalForm.vue"
 
     export default {
-        components : {Topbar, Appendix, AddAppendixModal},
+        components : {Topbar, Appendix, ModalForm},
         data(){
             return {
                 appendicies : {},
                 appendiciesNumber : 0,
-                addAppendixModalOpen: false,
-                addAppendixItemModalOpen: false,
+                modalDataSource: false,
             }
         },
         mounted(){
@@ -58,10 +58,15 @@
             }).catch(e => { console.log(e) })
         },
         methods: {
-            openModal(){
-                this.addAppendixModalOpen = true
-            },
+            openModalForm(source){
+                this.modalDataSource = source;
+            }
         },
+        computed: {
+            addAppendixModal(){
+                return addAppendix
+            }
+        }
     }
 </script>
 

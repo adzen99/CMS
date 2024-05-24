@@ -1,6 +1,6 @@
 <template>
     <form :action="form.action" :method="form.method" @submit.prevent="formSubmitted" class="row g-3" ref="form">
-        <component v-for="formElement in formElements" :is="compAssoc[formElement.type]" :form-element="formElement" :key="formElement.name" v-model="formElement.value" @changed="checkChanged"></component>
+        <component v-for="formElement in formElements" :is="compAssoc[formElement.type]" :form-element="formElement" :options-action-params-values="optionsActionParamsValues[formElement.name]" :key="formElement.name" v-model="formElement.value" @changed="checkChanged"></component>
     </form>   
 </template>
 
@@ -82,9 +82,26 @@ export default {
             }
             return result
         },
+        checkConstraints(name) {
+            this.constraints.forEach(constraint => {
+                for (let constr in constraint) {
+                    if (constr != name) return
+                    constraint[constr].forEach(con => {
+                        if(con.no_future_date){
+                            const currentDate = new Date()
+                            const checkDate = new Date(this.formData[constr])
+                            if(checkDate > currentDate){
+                                this.setErrors(constr, con.feedback)
+                            }
+                        }
+                    })                    
+                }
+            })
+        },
         checkChanged(name){
             this.removeIsInvalid(name)
             this.$emit('triggerAlertDanger', '')
+            this.checkConstraints(name)
             this.checkDependencies(name)
             return
         },
@@ -106,6 +123,7 @@ export default {
                 e.isInvalid = true
                 e.feedback = errorMessage
             })
+            
         },
         removeIsInvalid(name) {
             this.formElements.forEach(e => {
@@ -132,9 +150,19 @@ export default {
                     if(data.ok){
                         this.$emit('submitted')
                     }else{
-                        data.errors.forEach((e) => {
-                            this.setErrors(e.name, e.errorMessage)
-                        })
+                        if(data.errors){
+                            data.errors.forEach((e) => {
+                                this.setErrors(e.name, e.errorMessage)
+                            })
+                        }
+                        if(data.generalError){
+                            this.$emit('triggerAlertDanger', data.generalError.alertDanger)
+                            if(data.generalError.names){
+                                data.generalError.names.forEach(name => {
+                                    this.setIsInvalid(name)
+                                })
+                            }
+                        }
                     }
                 }).catch(e => { console.log(e); })
             }
@@ -144,12 +172,29 @@ export default {
         formElements() {
             return this.form?.elements || [] 
         },
-        dependencies () {
+        dependencies() {
             return this.form?.dependencies || []
+        },
+        constraints () {
+            return this.form?.constraints || []
+        },
+        optionsActionParamsValues(){
+            var result = {}
+            var aux = null
+            this.formElements.forEach(e => {
+                if(e.optionsActionParams){
+                    aux = []
+                    e.optionsActionParams.forEach(o => {
+                        aux.push(this.formData[o])
+                    })
+                    result[e.name] = aux
+                }
+            })
+            return result
         },
         formData() {
             let d = {}
-            this.formElements.forEach((e) => {
+            this.formElements.forEach(e => {
                 if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
                 if('value' in e){ d[e.name] = e.value }
             })

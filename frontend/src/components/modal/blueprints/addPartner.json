@@ -1,6 +1,6 @@
 {
     "title": "Add a partner",
-    "action" : "http://localhost:8000/api/addPartner",
+    "action" : "http://localhost:8000/api/addPartner/",
     "method" : "POST",
     "buttons" : { "submit" : "Add partner", "close" : "Close" },
     "modalSize" : "lg",

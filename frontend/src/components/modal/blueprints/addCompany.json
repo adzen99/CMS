@@ -1,6 +1,6 @@
 {
     "title": "Add a company",
-    "action" : "http://localhost:8000/api/addCompany",
+    "action" : "http://localhost:8000/api/addCompany/",
     "method" : "POST",
     "buttons" : { "submit" : "Add company", "close" : "Close" },
     "modalSize" : "lg",

@@ -1,0 +1,30 @@
+{
+    "title": "Add a partner",
+    "action" : "http://localhost:8000/api/addContract/",
+    "method" : "POST",
+    "buttons" : { "submit" : "Add contract", "close" : "Close" },
+    "modalSize" : "lg",
+    "alertDanger": "",
+    "elements" : [
+        { "name" : "no", "type":"number", "value": "", "label": "No.", "class":"col-md-4", "required": true },
+        { "name" : "date", "type":"date", "value": "", "label": "Date", "class":"col-md-4", "required": true },
+        { "name" : "expiration_date", "type":"date", "value": "", "label": "Expiration date", "class":"col-md-4", "required": true},
+        { "name" : "id_provider", "type":"select", "value": "", "label": "Provider", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyCompaniesForProviders/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_beneficiary", "type":"select", "value": "", "label": "Beneficiary", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyPartnersForBeneficiaries/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_user", "type":"hidden", "value": "", "label": ""}
+    ],
+    "constraints": [
+        {
+            "date": [
+                {
+                    "feedback": "The date can't be from the past",
+                    "no_future_date": true
+                }
+            ]
+        }
+    ]
+}
