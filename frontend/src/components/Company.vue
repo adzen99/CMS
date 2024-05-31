@@ -1,15 +1,6 @@
-<script>
-    export default {
-        mounted(){
-        },
-        props: {
-            company: Object,
-            no: Number,
-        },
-    }
-</script>
-
 <template>
+    <!-- <Toast /> -->
+    <ConfirmPopup></ConfirmPopup>
     <tr>
         <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
@@ -18,12 +9,54 @@
         <td>{{ company.bank }}<br/><small>{{ 'IBAN: ' + company.iban }}</small></td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
-                <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editCompanyModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" @click="confirmDelete($event)" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
+    <ModalForm :data-source="modalDataSource" :object="company" @hide-modal="modalDataSource = false"/>
 </template>
+<script>
+    import editCompany from "./modal/blueprints/editCompany.json"
+    import ModalForm from "./modal/ModalForm.vue"
+    import ConfirmPopup from 'primevue/confirmpopup'
+    import Toast from 'primevue/toast'
+
+    export default {
+        components : { ModalForm, Toast, ConfirmPopup },
+        props: {
+            company: Object,
+            no: Number,
+        },
+        data(){
+            return {
+                modalDataSource: false,
+            }
+        },
+        methods: {
+            openModalForm(source){
+                this.modalDataSource = source;
+            },
+            confirmDelete(event) {
+                console.log(event.currentTarget)
+                this.$confirm.require({
+                    target: event.currentTarget,
+                    icon: 'pi pi-exclamation-triangle',
+                    message: 'Do you want to delete this company?',
+                    rejectClass: 'btn btn-info',
+                    acceptClass: 'btn btn-danger',
+                    rejectLabel: 'Cancel',
+                    acceptLabel: 'Delete',
+                });
+            },
+        },
+        computed: {
+            editCompanyModal(){
+                return editCompany
+            }
+        },
+    }
+</script>
 
 <style scoped>
     .inline-spacing {

@@ -23,5 +23,21 @@
             ]
         },
         { "name" : "id_user", "type":"hidden", "value": "", "label": ""}
+    ],
+    "dependencies": [
+        {
+            "id_provider": {
+                "affected": [
+                    {"name": "id_contract", "action": "http://localhost:8000/api/getContractsForAppendicies", "actionParams": ["id_provider", "id_beneficiary"]}
+                ]
+            }
+        },
+        {
+            "id_beneficiary": {
+                "affected": [
+                    {"name": "id_contract", "action": "http://localhost:8000/api/getContractsForAppendicies", "actionParams": ["id_provider", "id_beneficiary"]}
+                ]
+            }
+        }
     ]
 }

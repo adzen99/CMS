@@ -2,6 +2,8 @@
     font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
+.nav-link{ color: unset !important; }
+
 table th, table td {
     text-align: center !important;
 }

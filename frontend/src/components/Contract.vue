@@ -8,36 +8,38 @@
         <td>{{ contract.beneficiary }}</td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary" @click="openEditModal"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editContractModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
-    <EditContractModal :data="editContractModalOpen" @hidden-modal="editContractModalOpen=false" :contract="contract"/>
+    <ModalForm :data-source="modalDataSource" :object="contract" @hide-modal="modalDataSource = false"/>
 </template>
 <script>
-    import EditContractModal from "./modals/EditContractModal.vue"
+    import ModalForm from "./modal/ModalForm.vue"
+    import editContract from "./modal/blueprints/editContract.json"
+
     export default {
-        components : { EditContractModal },
+        components : { ModalForm },
         props: {
             contract: Object,
             no: Number
         },
         mounted(){
-            var date = new Date(this.contract.date)
-            this.contract.date = date.toLocaleDateString()
-
-            date = new Date(this.contract.expiration_date)
-            this.contract.expiration_date = date.toLocaleDateString()
         },
         data(){
             return {
-                editContractModalOpen: false
+                modalDataSource: false,
             }
         },
         methods: {
-            openEditModal(){
-                this.editContractModalOpen = true;
+            openModalForm(source){
+                this.modalDataSource = source;
+            }
+        },
+        computed: {
+            editContractModal(){
+                return editContract
             }
         }
     }

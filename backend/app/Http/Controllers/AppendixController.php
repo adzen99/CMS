@@ -10,10 +10,20 @@ class AppendixController extends Controller
 {
     function add(Request $request){
         $input = $request->input();
-        $appendix = new Appendix;
-        foreach($input as $key => $value){ $appendix->$key = $value; }
-        $appendix->save();
-        return ['ok' => 1];
+        unset($input['id_user']);
+        $response = ['ok' => 0];
+        if(Appendix::where(['no' => $input['no'], 'series' => $input['series'], 'id_provider' => $input['id_provider']])->exists()){
+            $response['generalError'] = [
+                'names' => ['series', 'no'],
+                'alertDanger' => 'An appendix with the same series and number already exists!',
+            ];
+        }else{
+            $appendix = new Appendix;
+            foreach($input as $key => $value){ $appendix->$key = $value; }
+            $appendix->save();
+            $response = ['ok' => 1, 'message' => 'The appendix has been added successfully!'];
+        }
+        return $response;
     }
 
     function getMyAppendicies(Request $request){

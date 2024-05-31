@@ -1,8 +1,8 @@
 {
-    "title": "Add a contract",
-    "action" : "http://localhost:8000/api/addContract/",
-    "method" : "POST",
-    "buttons" : { "submit" : "Add contract", "close" : "Close" },
+    "title": "Edit a contract",
+    "action" : "http://localhost:8000/api/editContract/",
+    "method" : "PUT",
+    "buttons" : { "submit" : "Edit contract", "close" : "Close" },
     "modalSize" : "lg",
     "alertDanger": "",
     "elements" : [
@@ -15,7 +15,8 @@
         { "name" : "id_beneficiary", "type":"select", "value": "", "label": "Beneficiary", "class":"col-md-6", "required": true, 
             "optionsAction" : "http://localhost:8000/api/getMyPartnersForBeneficiaries/", "optionsActionParams": ["id_user"]
         },
-        { "name" : "id_user", "type":"hidden", "value": "", "label": ""}
+        { "name" : "id_user", "type":"hidden", "value": "", "label": ""},
+        { "name" : "id", "type":"hidden", "value": "", "label": ""}
     ],
     "constraints": [
         {

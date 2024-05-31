@@ -12,7 +12,7 @@
                             <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-exclamation" />
                             {{ form?.alertDanger }}
                         </div>
-                        <Form :data-source="form" @submitted="submitted" @trigger-alert-danger="triggerAlertDanger" ref="form"/>                       
+                        <Form :data-source="form" :object="object" @submitted="submitted" @trigger-alert-danger="triggerAlertDanger" ref="form"/>                       
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ form?.buttons?.close || 'Close' }}</button>
@@ -32,7 +32,11 @@
         components: { Form },
         emits : ['hideModal'],
         props: {
-            dataSource: [String, Object, Boolean] 
+            dataSource: [String, Object, Boolean],
+            object: {
+                type: Object,
+                required: false,
+            },
         }, 
         data() {
             return {

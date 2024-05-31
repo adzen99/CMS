@@ -1,6 +1,13 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import PrimeVue from "primevue/config"
+import ConfirmationService from 'primevue/confirmationservice'
+
+// import "primeflex/primeflex.css"
+import "primevue/resources/themes/aura-light-green/theme.css"
+import "primevue/resources/primevue.min.css"
+
 import router from './router'
 import globals from './globals'
 import store from './store/store'
@@ -68,6 +75,6 @@ app.config.globalProperties.globals = globals
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 
-app.use(router).use(store)
+app.use(router).use(store).use(PrimeVue, {ripple: true}).use(ConfirmationService)
 
 app.mount('#app')

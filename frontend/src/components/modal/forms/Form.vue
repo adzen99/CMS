@@ -10,7 +10,8 @@ export default {
     expose: [ 'formSubmitted'],
     emits : ['submitted', 'triggerAlertDanger'],
     props: {
-        dataSource : [String, Object, Boolean]
+        dataSource : [String, Object, Boolean],
+        object: Object,
     },
     data(){
         return {
@@ -47,19 +48,30 @@ export default {
                 for (let dep in dependency) {
                     if (dep != name) return
                     let affected = dependency[dep]?.affected
-                    if (!affected || typeof affected == undefined) return
                     if(affected){
                         affected.forEach(aff => {
                             if(aff.action){
-                                let action = aff.action + '/' + this.formData[name]
-                                fetch(action)
-                                .then(response => {
-                                    return response.json()
-                                }).then(data => {
-                                if(data.ok){
-                                    this.setOptions(aff.name, data.options)
+                                let action = aff.action
+                                if(aff.actionParams){
+                                    let params = this.buildParamsFromNonEmptyKeys(aff.actionParams)
+                                    if(params.length){
+                                        action += '/' + params.join('/')
+                                    }else{
+                                        action = null
+                                    }
+                                }else{
+                                    action += '/' + this.formData[name]
                                 }
-                                }).catch(e => { console.log(e) })
+                                if(action){
+                                    fetch(action)
+                                    .then(response => {
+                                        return response.json()
+                                    }).then(data => {
+                                    if(data.ok){
+                                        this.setOptions(aff.name, data.options)
+                                    }
+                                    }).catch(e => { console.log(e) })
+                                }
                             }
                         })
                     }                    
@@ -98,12 +110,18 @@ export default {
                 }
             })
         },
+        buildParamsFromNonEmptyKeys(keys){
+            var result = []
+            keys.forEach(k => {
+                result.push(this.formData[k] ? this.formData[k] : 0)
+            })
+            return result.includes(0) ? [] : result
+        },
         checkChanged(name){
             this.removeIsInvalid(name)
             this.$emit('triggerAlertDanger', '')
             this.checkConstraints(name)
             this.checkDependencies(name)
-            return
         },
         setOptions(name, options) {
             this.formElements.forEach(e => {
@@ -123,7 +141,12 @@ export default {
                 e.isInvalid = true
                 e.feedback = errorMessage
             })
-            
+        },
+        setValue(name, value){
+            this.formElements.forEach(e => {
+                if (e.name!=name) return
+                e.value = value
+            })
         },
         removeIsInvalid(name) {
             this.formElements.forEach(e => {
@@ -170,6 +193,14 @@ export default {
     },
     computed: {
         formElements() {
+            if(this.object){
+                console.log(this.object)
+                this.form.elements.forEach(element => {
+                    if(this.object[element.name]){
+                        element.value = this.object[element.name]
+                    }
+                })
+            }
             return this.form?.elements || [] 
         },
         dependencies() {

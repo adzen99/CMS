@@ -24,9 +24,27 @@ class CompanyController extends Controller
         }
         return $response;
     }
+
+    function edit(Request $request){
+        $input = $request->input();
+        $id = $input['id']; unset($input['id']); 
+        unset($input['id_user']);
+        $response = ['ok' => 0];
+        if(Company::where(['cui' => $input['cui']])->where('id' , '<>', $id)->exists()){
+            $response['generalError'] = [
+                'alertDanger' => 'A company with the same CUI already exists!',
+                'names' => ['cui']
+            ];
+        }else{
+            Company::where('id', $id)->update($input);
+            $response = ['ok' => 1, 'message' => 'The company has been edited successfully!'];
+        }
+        return $response;
+    }
+
     function getMyCompanies(Request $request){
         $id_user = $request->route('id_user');
-        $myCompanies = Company::select('companies.name AS name', 'companies.address AS address', 'localities.name AS locality', 'counties.name AS county', 'companies.cui AS cui', 'companies.nr_reg AS nr_reg', 'banks.name as bank', 'companies.iban AS iban')
+        $myCompanies = Company::select('companies.id AS id', 'companies.name AS name', 'companies.address AS address', 'companies.id_locality AS id_locality', 'localities.name AS locality', 'companies.id_county AS id_county', 'counties.name AS county', 'companies.cui AS cui', 'companies.nr_reg AS nr_reg', 'companies.id_bank AS id_bank', 'banks.name as bank', 'companies.iban AS iban')
                         ->join('banks', 'banks.id', '=', 'companies.id_bank')
                         ->join('counties', 'counties.id', '=', 'companies.id_county')
                         ->join('localities', 'localities.id', '=', 'companies.id_locality')

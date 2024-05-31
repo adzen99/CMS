@@ -4,6 +4,7 @@
     import MyAccountGeneral from "../MyAccountGeneral.vue"
     import MyAccountCompanies from "../MyAccountCompanies.vue"
     import MyAccountPartners from "../MyAccountPartners.vue"
+
     export default {
         components : { Topbar, MyAccountGeneral, MyAccountCompanies, MyAccountPartners },
         data(){

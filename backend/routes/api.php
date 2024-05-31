@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('cors')->group(function(){
     Route::post('addCompany', [CompanyController::class, 'add']);
+    Route::put('editCompany', [CompanyController::class, 'edit']);
     Route::get('getMyCompanies/{id_user}', [CompanyController::class, 'getMyCompanies']);
     Route::get('getMyCompaniesForProviders/{id_user}', [CompanyController::class, 'getMyCompaniesForProviders']);
 
