@@ -1,33 +1,48 @@
-<script>
-    export default {
-        mounted(){
-            // console.log(this.invoice)
-        },
-        props: {
-            invoice: Object,
-        },
-        computed: {
-            invoiceToShow: function(){
-                delete this.invoice['id']
-                return this.invoice
-            }
-        }
-    }
-</script>
-
 <template>
     <tr>
         <td><input type="checkbox" /></td>
-        <td v-for="(value, key) in invoiceToShow">{{ value }}</td>
+        <td>{{ no }}</td>
+        <td>{{ invoice.series + invoice.no }}</td>
+        <td>{{ (new Date(invoice.date)).toLocaleDateString() }}</td>
+        <td>{{ invoice.value + ' ' + invoice.currency }}</td>
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-secondary"><font-awesome-icon icon="fa-solid fa-file-pdf" /></button>
-                <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editInvoiceModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
+    <ModalForm :data-source="modalDataSource" :object="invoice" @hide-modal="modalDataSource = false"/>
 </template>
+
+<script>
+    import ModalForm from "./modal/ModalForm.vue"
+    import editInvoice from "./modal/blueprints/editInvoice.json"
+
+    export default {
+        components : {ModalForm},
+        props: {
+            invoice: Object,
+            no: Number,
+        },
+        data() {
+            return {
+                modalDataSource: false,
+            }
+        },
+        methods: {
+            openModalForm(source){
+                this.modalDataSource = source;
+            },
+        },
+        computed: {
+            editInvoiceModal(){
+                return editInvoice
+            }
+        }
+    }
+</script>
 
 <style scoped>
     .inline-spacing {

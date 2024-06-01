@@ -27,9 +27,26 @@ class PartnerController extends Controller
         return $response;
     }
 
+    function edit(Request $request){
+        $input = $request->input();
+        $id = $input['id']; unset($input['id']); 
+        unset($input['id_user']);
+        $response = ['ok' => 0];
+        if(Partner::where(['cui' => $input['cui']])->where('id' , '<>', $id)->exists()){
+            $response['generalError'] = [
+                'alertDanger' => 'A partner with the same CUI already exists!',
+                'names' => ['cui']
+            ];
+        }else{
+            Partner::where('id', $id)->update($input);
+            $response = ['ok' => 1, 'message' => 'The partner has been edited successfully!'];
+        }
+        return $response;
+    }
+
     function getMyPartners(Request $request){
         $id_user = $request->route('id_user');
-        $myPartners = Partner::select('partners.name AS name', 'partners.address AS address', 'localities.name AS locality', 'counties.name AS county', 'partners.cui AS cui', 'partners.nr_reg AS nr_reg')
+        $myPartners = Partner::select('partners.id AS id', 'partners.name AS name', 'partners.address AS address', 'partners.id_locality AS id_locality', 'localities.name AS locality', 'partners.id_county AS id_county', 'counties.name AS county', 'partners.cui AS cui', 'partners.nr_reg AS nr_reg')
                         ->join('counties', 'counties.id', '=', 'partners.id_county')
                         ->join('localities', 'localities.id', '=', 'partners.id_locality')
                         ->where('id_user', $id_user)

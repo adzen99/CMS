@@ -1,0 +1,41 @@
+{
+    "title": "Edit an invoice",
+    "action" : "http://localhost:8000/api/editInvoice/",
+    "method" : "PUT",
+    "buttons" : { "submit" : "Edit invoice", "close" : "Close" },
+    "modalSize" : "lg",
+    "alertDanger": "",
+    "elements" : [
+        { "name" : "series", "type":"text", "value": "", "label": "Series", "class":"col-md-4", "required": true },
+        { "name" : "no", "type":"number", "value": "", "label": "No.", "class":"col-md-4", "required": true },
+        { "name" : "currency", "type":"select", "value": "", "label": "Currency", "class":"col-md-4", "required": true, 
+            "options": [
+                {"value": "EUR", "text": "EUR"},
+                {"value": "RON", "text": "RON", "selected": true}
+            ]
+        },
+        { "name" : "date", "type":"date", "value": "", "label": "Date", "class":"col-md-4", "required": true },
+        { "name" : "due_date", "type":"date", "value": "", "label": "Due date", "class":"col-md-4", "required": true },
+        { "name" : "id_appendix", "type":"select", "value": "", "label": "Appendix", "class":"col-md-4",
+            "optionsAction" : "http://localhost:8000/api/getAppendiciesForInvoicesEdit/", "optionsActionParams": ["id_user", "id"]
+        },
+        { "name" : "id_provider", "type":"select", "value": "", "label": "Provider", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyCompaniesForProviders/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_beneficiary", "type":"select", "value": "", "label": "Beneficiary", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyPartnersForBeneficiaries/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_user", "type":"hidden", "value": "", "label": ""},
+        { "name" : "id", "type":"hidden", "value": "", "label": ""}
+    ],
+    "constraints": [
+        {
+            "date": [
+                {
+                    "feedback": "The date can't be from the future",
+                    "no_future_date": true
+                }
+            ]
+        }
+    ]
+}

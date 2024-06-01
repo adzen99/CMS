@@ -1,6 +1,15 @@
 <template>
     <form :action="form.action" :method="form.method" @submit.prevent="formSubmitted" class="row g-3" ref="form">
-        <component v-for="formElement in formElements" :is="compAssoc[formElement.type]" :form-element="formElement" :options-action-params-values="optionsActionParamsValues[formElement.name]" :key="formElement.name" v-model="formElement.value" @changed="checkChanged"></component>
+        <component 
+        v-for="formElement in formElements" 
+        :is="compAssoc[formElement.type]" 
+        :form-element="formElement" 
+        :options-action-params-values="optionsActionParamsValues[formElement.name]" 
+        @fill-other-fields="fillOtherFields"
+        :key="formElement.name" 
+        v-model="formElement.value" 
+        @changed="checkChanged"
+        ></component>
     </form>   
 </template>
 
@@ -25,7 +34,6 @@ export default {
             number: FormComponents.InputText,
             date: FormComponents.InputText,
             select: FormComponents.SelectInput,
-            // submit: FormComponents.SubmitButton
         };
     },
     watch: {
@@ -110,6 +118,21 @@ export default {
                 }
             })
         },
+        checkFillOtherFields(name) {
+            this.formElements.forEach(element => {
+                if(element.name != name) return
+                if(element.fillOtherFields){
+                    if(element.fillOtherFields[element.value]){
+                        for(const key in element.fillOtherFields[element.value]){
+                            this.setValue(key, element.value ? element.fillOtherFields[element.value][key] : 0)
+                        }
+                    }
+                }
+            })
+        },
+        fillOtherFields(params, name){
+            this.setfillOtherFields(name, params)
+        },
         buildParamsFromNonEmptyKeys(keys){
             var result = []
             keys.forEach(k => {
@@ -122,6 +145,7 @@ export default {
             this.$emit('triggerAlertDanger', '')
             this.checkConstraints(name)
             this.checkDependencies(name)
+            this.checkFillOtherFields(name)
         },
         setOptions(name, options) {
             this.formElements.forEach(e => {
@@ -146,6 +170,12 @@ export default {
             this.formElements.forEach(e => {
                 if (e.name!=name) return
                 e.value = value
+            })
+        },
+        setfillOtherFields(name, value){
+            this.formElements.forEach(e => {
+                if (e.name!=name) return
+                e['fillOtherFields'] = value
             })
         },
         removeIsInvalid(name) {
@@ -194,7 +224,6 @@ export default {
     computed: {
         formElements() {
             if(this.object){
-                console.log(this.object)
                 this.form.elements.forEach(element => {
                     if(this.object[element.name]){
                         element.value = this.object[element.name]

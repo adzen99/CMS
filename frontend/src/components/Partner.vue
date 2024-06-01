@@ -1,14 +1,3 @@
-<script>
-    export default {
-        mounted(){
-        },
-        props: {
-            partner: Object,
-            no: Number,
-        },
-    }
-</script>
-
 <template>
     <tr>
         <td><input type="checkbox" /></td>
@@ -17,12 +6,41 @@
         <td>{{ partner.locality + ', ' + partner.county }}<br/><small>{{ partner.address }}</small></td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editPartnerModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
+    <ModalForm :data-source="modalDataSource" :object="partner" @hide-modal="modalDataSource = false"/>
 </template>
+
+<script>
+    import editPartner from "./modal/blueprints/editPartner.json"
+    import ModalForm from "./modal/ModalForm.vue"
+
+    export default {
+        components : { ModalForm },
+        props: {
+            partner: Object,
+            no: Number,
+        },
+        data(){
+            return {
+                modalDataSource: false,
+            }
+        },
+        methods : {
+            openModalForm(source){
+                this.modalDataSource = source;
+            },
+        },
+        computed: {
+            editPartnerModal(){
+                return editPartner
+            }
+        },
+    }
+</script>
 
 <style scoped>
     .inline-spacing {

@@ -16,18 +16,17 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('series');
-            $table->unsignedBigInteger('number');
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_company');
-            $table->unsignedBigInteger('id_partner');
-            $table->unsignedBigInteger('id_contract');
-            $table->unsignedBigInteger('id_appendix');
+            $table->unsignedBigInteger('no');
+            $table->unsignedBigInteger('id_provider');
+            $table->unsignedBigInteger('id_beneficiary');
+            $table->unsignedBigInteger('id_contract')->default(0);
+            $table->unsignedBigInteger('id_appendix')->default(0);
             $table->date('date');
             $table->date('due_date');
             $table->string('currency');
-            $table->decimal('value');
-            $table->decimal('vat');
-            $table->tinyInteger('vat_percentage');
+            $table->decimal('value')->default(0);
+            $table->decimal('vat')->default(0);
+            $table->tinyInteger('vat_percentage')->default(0);
         });
     }
 

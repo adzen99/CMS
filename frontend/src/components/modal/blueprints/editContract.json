@@ -17,15 +17,5 @@
         },
         { "name" : "id_user", "type":"hidden", "value": "", "label": ""},
         { "name" : "id", "type":"hidden", "value": "", "label": ""}
-    ],
-    "constraints": [
-        {
-            "date": [
-                {
-                    "feedback": "The date can't be from the past",
-                    "no_future_date": true
-                }
-            ]
-        }
     ]
 }

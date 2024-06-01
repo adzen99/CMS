@@ -1,0 +1,46 @@
+{
+    "title": "Edit an appendix",
+    "action" : "http://localhost:8000/api/editAppendix/",
+    "method" : "PUT",
+    "buttons" : { "submit" : "Edit appendix", "close" : "Close" },
+    "modalSize" : "lg",
+    "alertDanger": "",
+    "elements" : [
+        { "name" : "series", "type":"text", "value": "", "label": "Series", "class":"col-md-4", "required": true },
+        { "name" : "no", "type":"number", "value": "", "label": "No.", "class":"col-md-4", "required": true },
+        { "name" : "date", "type":"date", "value": "", "label": "Date", "class":"col-md-4", "required": true },
+        { "name" : "id_provider", "type":"select", "value": "", "label": "Provider", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyCompaniesForProviders/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_beneficiary", "type":"select", "value": "", "label": "Beneficiary", "class":"col-md-6", "required": true, 
+            "optionsAction" : "http://localhost:8000/api/getMyPartnersForBeneficiaries/", "optionsActionParams": ["id_user"]
+        },
+        { "name" : "id_contract", "type":"select", "value": "", "label": "Contract", "class":"col-md-6", "required": true,
+            "optionsAction" : "http://localhost:8000/api/getContractsForAppendicies/", "optionsActionParams": ["id_provider", "id_beneficiary"]
+        },
+        { "name" : "currency", "type":"select", "value": "", "label": "Currency", "class":"col-md-6", "required": true, 
+            "options": [
+                {"value": "EUR", "text": "EUR"},
+                {"value": "RON", "text": "RON", "selected": true}
+            ]
+        },
+        { "name" : "id_user", "type":"hidden", "value": "", "label": ""},
+        { "name" : "id", "type":"hidden", "value": "", "label": ""}
+    ],
+    "dependencies": [
+        {
+            "id_provider": {
+                "affected": [
+                    {"name": "id_contract", "action": "http://localhost:8000/api/getContractsForAppendicies", "actionParams": ["id_provider", "id_beneficiary"]}
+                ]
+            }
+        },
+        {
+            "id_beneficiary": {
+                "affected": [
+                    {"name": "id_contract", "action": "http://localhost:8000/api/getContractsForAppendicies", "actionParams": ["id_provider", "id_beneficiary"]}
+                ]
+            }
+        }
+    ]
+}

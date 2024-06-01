@@ -1,0 +1,26 @@
+{
+    "title": "Edit a partner",
+    "action" : "http://localhost:8000/api/editPartner/",
+    "method" : "PUT",
+    "buttons" : { "submit" : "Edit partner", "close" : "Close" },
+    "modalSize" : "lg",
+    "alertDanger": "",
+    "elements" : [
+        { "name" : "name", "type":"text", "value": "", "label": "Name", "class":"col-md-6", "required": true },
+        { "name" : "address", "type":"text", "value": "", "label": "Address", "class":"col-md-6", "required": true },
+        { "name" : "id_county", "type":"select", "value": "", "label": "County", "class":"col-md-6", "required": true, "optionsAction": "http://localhost:8000/api/getCountiesOptions"},
+        { "name" : "id_locality", "type":"select", "value": "", "label": "Locality", "class":"col-md-6", "required": true, "optionsAction": "http://localhost:8000/api/getCountiesOptions"},
+        { "name" : "cui", "type":"text", "value": "", "label": "CUI", "class":"col-md-6", "required": true},
+        { "name" : "nr_reg", "type":"text", "value": "", "label": "Nr. reg.", "class":"col-md-6", "required": true},
+        { "name" : "id", "type":"hidden", "value": "", "label": ""}
+    ],
+    "dependencies": [
+        {
+            "id_county": {
+                "affected": [
+                    {"name": "id_locality", "action": "http://localhost:8000/api/getOptionsLocalitiesOfCounty"}
+                ]
+            }
+        }
+    ]
+}

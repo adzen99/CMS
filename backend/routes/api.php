@@ -10,6 +10,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CountyController;
 use App\Http\Controllers\ExchangeRateController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LocalityController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\UserController;
@@ -38,6 +39,7 @@ Route::middleware('cors')->group(function(){
     Route::put('setUserInfo', [UserController::class, 'updateInfo']);
 
     Route::post('addPartner', [PartnerController::class, 'add']);
+    Route::put('editPartner', [PartnerController::class, 'edit']);
     Route::get('getMyPartners/{id_user}', [PartnerController::class, 'getMyPartners']);
     Route::get('getMyPartnersForBeneficiaries/{id_user}', [PartnerController::class, 'getMyPartnersForBeneficiaries']);
 
@@ -45,13 +47,19 @@ Route::middleware('cors')->group(function(){
     Route::put('editContract', [ContractController::class, 'edit']);
     Route::get('getMyContracts/{id_user}', [ContractController::class, 'getMyContracts']);
     Route::get('getContractsForAppendicies/{id_provider}/{id_beneficiary}', [ContractController::class, 'getContractsForAppendicies']);
-
+    
     Route::post('addAppendix', [AppendixController::class, 'add']);
+    Route::put('editAppendix', [AppendixController::class, 'edit']);
     Route::get('getMyAppendicies/{id_user}', [AppendixController::class, 'getMyAppendicies']);
     Route::get('getAppendiciesForInvoices/{id_user}', [AppendixController::class, 'getAppendiciesForInvoices']);
+    Route::get('getAppendiciesForInvoicesEdit/{id_user}/{id_invoice}', [AppendixController::class, 'getAppendiciesForInvoicesEdit']);
 
     Route::post('addAppendixItem', [AppendixItemController::class, 'add']);
     Route::get('getAppendixItems/{id_appendix}', [AppendixItemController::class, 'getAppendixItems']);
+
+    Route::post('addInvoice', [InvoiceController::class, 'add']);
+    Route::put('editInvoice', [InvoiceController::class, 'edit']);
+    Route::get('getMyInvoices/{id_user}', [InvoiceController::class, 'getMyInvoices']);
 
     Route::get('getExchangeRatesToday', [ExchangeRateController::class, 'getExchangeRatesToday']);
 

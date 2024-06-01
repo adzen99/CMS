@@ -3,27 +3,32 @@
         <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
         <td>{{ appendix.series + appendix.no }}</td>
-        <td>{{ appendix.date }}</td>
-        <td>{{ appendix.no_contract + ' from ' + appendix.contract_date }}</td>
+        <td>{{ (new Date(appendix.date)).toLocaleDateString() }}</td>
+        <td>{{ appendix.no_contract + ' from ' + (new Date(appendix.contract_date)).toLocaleDateString() }}</td>
         <td>{{ appendix.value + ' ' + appendix.currency }}</td>
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-secondary" @click="generatePDF()"><font-awesome-icon icon="fa-solid fa-file-pdf" /></button>
                 <button type="button" class="btn btn-info" @click="openModal()"><font-awesome-icon icon="fa-solid fa-table-list" /></button>
-                <button type="button" class="btn btn-primary"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editAppendixModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
     <AddAppendixItemModal :appendix="appendix" :data="addAppendixItemModalOpen" @hidden-modal="addAppendixItemModalOpen=false"/>
+    <ModalForm :data-source="modalDataSource" :object="appendix" @hide-modal="modalDataSource = false"/>
+
 </template>
 
 <script>
     import AddAppendixItemModal from "./modals/AddAppendixItemModal.vue"
+    import editAppendix from "./modal/blueprints/editAppendix.json"
+    import ModalForm from "./modal/ModalForm.vue"
+
     import jsPDF from 'jspdf'
 
     export default {
-        components : {AddAppendixItemModal},
+        components : {AddAppendixItemModal, ModalForm},
         props: {
             appendix: Object,
             no: Number,
@@ -33,16 +38,18 @@
             return {
                 addAppendixItemModalOpen: false,
                 items: null,
+                modalDataSource: false,
             }
         },
-        mounted(){
-            var date = new Date(this.appendix.date)
-            this.appendix.date = date.toLocaleDateString()
-
-            date = new Date(this.appendix.contract_date)
-            this.appendix.contract_date = date.toLocaleDateString()
+        computed: {
+            editAppendixModal(){
+                return editAppendix
+            }
         },
         methods: {
+            openModalForm(source){
+                this.modalDataSource = source;
+            },
             openModal(){
                 this.addAppendixItemModalOpen = true
             },

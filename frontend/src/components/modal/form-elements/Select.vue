@@ -12,7 +12,7 @@
 </template>
 <script>
   export default {
-    emits: ['update:modelValue', 'changed'],
+    emits: ['update:modelValue', 'changed', 'fillOtherFields'],
     props: {
       formElement: Object,
       optionsActionParamsValues: Object,
@@ -30,6 +30,9 @@
         }).then(data => {
           if(data.ok){
             this.formElement.options = data.options
+            if(data.fillOtherFields){
+              this.$emit('fillOtherFields', data.fillOtherFields, this.formElement.name)
+            }
           }
         }).catch(e => { console.log(e) })
       }
