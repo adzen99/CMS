@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('cors')->group(function(){
     Route::post('addCompany', [CompanyController::class, 'add']);
     Route::put('editCompany', [CompanyController::class, 'edit']);
+    Route::delete('deleteCompany', [CompanyController::class, 'delete']);
     Route::get('getMyCompanies/{id_user}', [CompanyController::class, 'getMyCompanies']);
     Route::get('getMyCompaniesForProviders/{id_user}', [CompanyController::class, 'getMyCompaniesForProviders']);
 
@@ -40,16 +41,19 @@ Route::middleware('cors')->group(function(){
 
     Route::post('addPartner', [PartnerController::class, 'add']);
     Route::put('editPartner', [PartnerController::class, 'edit']);
+    Route::delete('deletePartner', [PartnerController::class, 'delete']);
     Route::get('getMyPartners/{id_user}', [PartnerController::class, 'getMyPartners']);
     Route::get('getMyPartnersForBeneficiaries/{id_user}', [PartnerController::class, 'getMyPartnersForBeneficiaries']);
 
     Route::post('addContract', [ContractController::class, 'add']);
     Route::put('editContract', [ContractController::class, 'edit']);
+    Route::delete('deleteContract', [ContractController::class, 'delete']);
     Route::get('getMyContracts/{id_user}', [ContractController::class, 'getMyContracts']);
     Route::get('getContractsForAppendicies/{id_provider}/{id_beneficiary}', [ContractController::class, 'getContractsForAppendicies']);
     
     Route::post('addAppendix', [AppendixController::class, 'add']);
     Route::put('editAppendix', [AppendixController::class, 'edit']);
+    Route::delete('deleteAppendix', [AppendixController::class, 'delete']);
     Route::get('getMyAppendicies/{id_user}', [AppendixController::class, 'getMyAppendicies']);
     Route::get('getAppendiciesForInvoices/{id_user}', [AppendixController::class, 'getAppendiciesForInvoices']);
     Route::get('getAppendiciesForInvoicesEdit/{id_user}/{id_invoice}', [AppendixController::class, 'getAppendiciesForInvoicesEdit']);
@@ -59,6 +63,7 @@ Route::middleware('cors')->group(function(){
 
     Route::post('addInvoice', [InvoiceController::class, 'add']);
     Route::put('editInvoice', [InvoiceController::class, 'edit']);
+    Route::delete('deleteInvoice', [InvoiceController::class, 'delete']);
     Route::get('getMyInvoices/{id_user}', [InvoiceController::class, 'getMyInvoices']);
 
     Route::get('getExchangeRatesToday', [ExchangeRateController::class, 'getExchangeRatesToday']);

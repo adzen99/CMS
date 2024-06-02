@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Company;
+use App\Models\Contract;
+use App\Models\Appendix;
+use App\Models\Invoice;
 
 class CompanyController extends Controller
 {
@@ -38,6 +41,34 @@ class CompanyController extends Controller
         }else{
             Company::where('id', $id)->update($input);
             $response = ['ok' => 1, 'message' => 'The company has been edited successfully!'];
+        }
+        return $response;
+    }
+
+    function delete(Request $request){
+        $input = $request->input();
+        $id = $input['id'];
+        $response = ['ok' => 0];
+        $messages = [];
+        $countContracts = Contract::where('id_provider', $id)->count();
+        if($countContracts){
+            $messages[] = 'The company has associated contracts!';
+        }
+        $countAppendicies = Appendix::where('id_provider', $id)->count();
+        if($countAppendicies){
+            $messages[] = 'The company has associated appendicies!';
+        }
+
+        $countInvoices = Invoice::where('id_provider', $id)->count();
+        if($countInvoices){
+            $messages[] = 'The company has associated invoices!';
+        }
+
+        if(!$countContracts && !$countAppendicies && !$countInvoices){
+            Company::find($id)->delete();
+            $response = ['ok' => 1, 'message' => 'The company has been deleted!'];
+        }else{
+            $response['toastErrorMessage'] = implode("\n", $messages);
         }
         return $response;
     }

@@ -77,6 +77,21 @@ class InvoiceController extends Controller
         return $response;
     }
 
+    function delete(Request $request){
+        $input = $request->input();
+        $id = $input['id'];
+        $response = ['ok' => 0];
+
+        $invoice = Invoice::where('id', $id)->first();
+        if($invoice && $invoice->id_appendix){
+            Appendix::where('id', $invoice->id_appendix)->update(['id_invoice' => 0]);
+        }
+        Invoice::find($id)->delete();
+        $response = ['ok' => 1, 'message' => 'The invoice has been deleted!'];
+        
+        return $response;
+    }
+
     function getMyInvoices(Request $request){
         $id_user = $request->route('id_user');
         $myInvoices = Invoice::select('invoices.id AS id', 

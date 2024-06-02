@@ -1,4 +1,5 @@
 <template>
+    <ConfirmPopup></ConfirmPopup>
     <tr>
         <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
@@ -7,7 +8,7 @@
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-primary" @click="openModalForm(editPartnerModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
-                <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
         </td>
     </tr>
@@ -27,11 +28,41 @@
         data(){
             return {
                 modalDataSource: false,
+                deleteEndpoint: 'http://localhost:8000/api/deletePartner'
             }
         },
         methods : {
             openModalForm(source){
                 this.modalDataSource = source;
+            },
+            confirmDelete(event) {
+                this.$confirm.require({
+                    target: event.currentTarget,
+                    icon: 'pi pi-exclamation-triangle',
+                    message: 'Do you want to delete this partner?',
+                    rejectClass: 'btn btn-secondary',
+                    acceptClass: 'btn btn-danger',
+                    rejectLabel: 'Cancel',
+                    acceptLabel: 'Delete',
+                    accept: () => {
+                        fetch(this.deleteEndpoint, {
+                            method: 'DELETE',
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                            },
+                            body: JSON.stringify({'id': this.partner.id})
+                        }).then(response => {
+                            return response.json()
+                        }).then(data =>{
+                            if(data.ok){
+                                this.$toast.add({ severity: 'success', summary: 'Succes!', detail: data.message, life: 10000, closable: true });
+                            }else{
+                                this.$toast.add({ severity: 'error', summary: 'Attention!', detail: data.toastErrorMessage, life: 10000, closable: true });
+                            }
+                        }).catch(e => { console.log(e); })
+                    }
+                });
             },
         },
         computed: {

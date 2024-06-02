@@ -1,8 +1,9 @@
 <script>
     import Sidebar from "./components/view/Sidebar.vue"
+    import Toast from 'primevue/toast'
 
     export default {
-    components: { Sidebar },
+    components: { Sidebar, Toast },
     name: 'App',
     watch: {
         $route: {
@@ -17,6 +18,8 @@
 
 <template>
     <Sidebar v-if="$route.path != '/login'"/>
+    <Toast />
+
     <router-view/>
 </template>
 

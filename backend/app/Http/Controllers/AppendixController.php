@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Appendix;
+use App\Models\Invoice;
 
 class AppendixController extends Controller
 {
@@ -41,6 +42,26 @@ class AppendixController extends Controller
             Appendix::where('id', $id)->update($input);
             $response = ['ok' => 1, 'message' => 'The appendix has been edited successfully!'];
             // to do: if the appendix has an associated invoice, update the info for it
+        }
+        return $response;
+    }
+
+    function delete(Request $request){
+        $input = $request->input();
+        $id = $input['id'];
+        $response = ['ok' => 0];
+        $messages = [];
+
+        $countInvoices = Invoice::where('id_appendix', $id)->count();
+        if($countInvoices){
+            $messages[] = 'The appendix has an associated invoice!';
+        }
+
+        if(!$countInvoices){
+            Appendix::find($id)->delete();
+            $response = ['ok' => 1, 'message' => 'The appendix has been deleted!'];
+        }else{
+            $response['toastErrorMessage'] = implode("\n", $messages);
         }
         return $response;
     }

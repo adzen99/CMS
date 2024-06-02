@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Partner;
+use App\Models\Contract;
+use App\Models\Appendix;
+use App\Models\Invoice;
 
 class PartnerController extends Controller
 {
@@ -40,6 +43,34 @@ class PartnerController extends Controller
         }else{
             Partner::where('id', $id)->update($input);
             $response = ['ok' => 1, 'message' => 'The partner has been edited successfully!'];
+        }
+        return $response;
+    }
+
+    function delete(Request $request){
+        $input = $request->input();
+        $id = $input['id'];
+        $response = ['ok' => 0];
+        $messages = [];
+        $countContracts = Contract::where('id_beneficiary', $id)->count();
+        if($countContracts){
+            $messages[] = 'The partner has associated contracts!';
+        }
+        $countAppendicies = Appendix::where('id_beneficiary', $id)->count();
+        if($countAppendicies){
+            $messages[] = 'The partner has associated appendicies!';
+        }
+
+        $countInvoices = Invoice::where('id_beneficiary', $id)->count();
+        if($countInvoices){
+            $messages[] = 'The partner has associated invoices!';
+        }
+
+        if(!$countContracts && !$countAppendicies && !$countInvoices){
+            Partner::find($id)->delete();
+            $response = ['ok' => 1, 'message' => 'The partner has been deleted!'];
+        }else{
+            $response['toastErrorMessage'] = implode("\n", $messages);
         }
         return $response;
     }

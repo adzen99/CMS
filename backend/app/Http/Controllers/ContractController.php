@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Contract;
-
+use App\Models\Appendix;
+use App\Models\Invoice;
 class ContractController extends Controller
 {
     function add(Request $request){
@@ -40,6 +41,31 @@ class ContractController extends Controller
         }else{
             Contract::where('id', $id)->update($input);
             $response = ['ok' => 1, 'message' => 'The contract has been edited successfully!'];
+        }
+        return $response;
+    }
+
+    function delete(Request $request){
+        $input = $request->input();
+        $id = $input['id'];
+        $response = ['ok' => 0];
+        $messages = [];
+
+        $countAppendicies = Appendix::where('id_contract', $id)->count();
+        if($countAppendicies){
+            $messages[] = 'The contract has associated appendicies!';
+        }
+
+        $countInvoices = Invoice::where('id_contract', $id)->count();
+        if($countInvoices){
+            $messages[] = 'The contract has associated invoices!';
+        }
+
+        if(!$countAppendicies && !$countInvoices){
+            Contract::find($id)->delete();
+            $response = ['ok' => 1, 'message' => 'The contract has been deleted!'];
+        }else{
+            $response['toastErrorMessage'] = implode("\n", $messages);
         }
         return $response;
     }
