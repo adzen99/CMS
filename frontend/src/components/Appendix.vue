@@ -10,7 +10,7 @@
         <td>
             <div class="inline-spacing">
                 <button type="button" class="btn btn-secondary" @click="generatePDF()"><font-awesome-icon icon="fa-solid fa-file-pdf" /></button>
-                <button type="button" class="btn btn-info" @click="openModal()"><font-awesome-icon icon="fa-solid fa-table-list" /></button>
+                <button type="button" class="btn btn-info" @click="openModalForm(addAppendixItemModal)"><font-awesome-icon icon="fa-solid fa-table-list" /></button>
                 <button type="button" class="btn btn-primary" @click="openModalForm(editAppendixModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
                 <button type="button" class="btn btn-danger" @click="confirmDelete($event)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
             </div>
@@ -24,6 +24,7 @@
 <script>
     import AddAppendixItemModal from "./modals/AddAppendixItemModal.vue"
     import editAppendix from "./modal/blueprints/editAppendix.json"
+    import addAppendixItem from "./modal/blueprints/addAppendixItem.json"
     import ModalForm from "./modal/ModalForm.vue"
     import ConfirmPopup from 'primevue/confirmpopup'
 
@@ -47,6 +48,9 @@
         computed: {
             editAppendixModal(){
                 return editAppendix
+            },
+            addAppendixItemModal(){
+                return addAppendixItem
             }
         },
         methods: {
@@ -91,7 +95,6 @@
                     return response.json()
                 }).then(data => {
                     var items = data.items
-                    console.log(items)
                     var pdf = new jsPDF({
                         format: "a4"
                     });
@@ -224,7 +227,6 @@
                 }).catch(e => { console.log(e) })
             }
         }
-        
     }
 </script>
 

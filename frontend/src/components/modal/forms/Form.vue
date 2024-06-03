@@ -1,15 +1,42 @@
 <template>
     <form :action="form.action" :method="form.method" @submit.prevent="formSubmitted" class="row g-3" ref="form">
-        <component 
-        v-for="formElement in formElements" 
-        :is="compAssoc[formElement.type]" 
-        :form-element="formElement" 
-        :options-action-params-values="optionsActionParamsValues[formElement.name]" 
-        @fill-other-fields="fillOtherFields"
-        :key="formElement.name" 
-        v-model="formElement.value" 
-        @changed="checkChanged"
-        ></component>
+        <template v-if="!form.getItemsAction">
+            <component 
+                v-for="formElement in formElements" 
+                :is="compAssoc[formElement.type]" 
+                :form-element="formElement" 
+                :options-action-params-values="optionsActionParamsValues[formElement.name]" 
+                @fill-other-fields="fillOtherFields"
+                :key="formElement.name" 
+                v-model="formElement.value" 
+                @changed="checkChanged"
+            />
+        </template>
+        <template v-else="form.getItemsAction && form.itemTemplate && this.form.elements">
+            <div class="col-12 d-flex flex-row-reverse mb-0">
+                <button type="button" class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-circle-plus" /></button>
+            </div>
+            <div v-for="(elements, idx) in this.form.elements" class="card">
+                <div class="card-header d-flex justify-content-between">
+                    No. {{ idx }}
+                    <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <component 
+                            v-for="elem in elements" 
+                            :is="compAssoc[elem.type]" 
+                            :form-element="elem" 
+                            :options-action-params-values="optionsActionParamsValues[elem.name]" 
+                            @fill-other-fields="fillOtherFields"
+                            :key="elem.name" 
+                            v-model="elem.value" 
+                            @changed="checkChanged"
+                        />
+                    </div>
+                </div>
+            </div>
+        </template>
     </form>   
 </template>
 
@@ -25,7 +52,9 @@ export default {
     data(){
         return {
             form : {},
-            isWorking : false
+            isWorking : false,
+            groupedItems: [],
+            copyTemplate: [],
         }
     },
     created() {
@@ -45,6 +74,36 @@ export default {
                 } else {
                     this.form = {}
                     this.formLoaded = false
+                }
+                if(this.form.getItemsAction && this.form.itemTemplate){
+                    var params = []
+                    if(this.form.getItemsAction.paramsValues){
+                        this.form.getItemsAction.paramsValues.forEach(e => {
+                            if(this.object[e]){
+                                params.push(this.object[e])
+                            }
+                        })
+                    }
+                    params = params.join('/')
+                    fetch("http://localhost:8000/api/getAppendixItems/" + params)
+                    .then(response => {
+                        return response.json()
+                    }).then(data => {
+                        if(data.ok){
+                            var elements = []
+                            for(let index in data.items){
+                                this.copyTemplate = JSON.parse(JSON.stringify(this.form.itemTemplate))
+                                this.copyTemplate.forEach(item => {
+                                    item.value = data.items[index][item.name]
+                                    item.name = item.name + '-' + index
+                                })
+                                elements.push(this.copyTemplate)
+                            }
+                            if(elements){
+                                this.form.elements = elements
+                            }
+                        }
+                    }).catch(e => { console.log(e) })
                 }
             },
             immediate : true
