@@ -1,7 +1,6 @@
 <template>
     <ConfirmPopup></ConfirmPopup>
     <tr>
-        <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
         <td>{{ contract.no + ' / '+ contract.date }}</td>
         <td>{{ contract.expiration_date }}</td>

@@ -43,7 +43,7 @@ class InvoiceController extends Controller
                             ];
                         }
                     }else{
-                        $value = $appendix->value;
+                        $invoice->value = $appendix->value;
                     }
                 }
             }

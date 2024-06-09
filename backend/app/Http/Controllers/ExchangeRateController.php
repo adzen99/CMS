@@ -74,7 +74,7 @@ class ExchangeRateController extends Controller
                 }
             }
             $currentDate = '2024-01-01';
-            while($currentDate != '2024-06-02'){
+            while($currentDate != '2024-06-10'){
                 if(!isset($allRates[$currentDate])){
                     $date = date('Y-m-d', strtotime($currentDate. ' -1 day'));
                     if(isset($allRates[$date])){

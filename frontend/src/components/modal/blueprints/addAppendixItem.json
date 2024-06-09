@@ -9,16 +9,16 @@
     "elements" : [
     ],
     "itemTemplate": [
-        { "name" : "description", "type":"text", "value": "", "label": "Description", "class":"col-md-5"},
-        { "name" : "vat_percentage", "type":"text", "value": "", "label": "VAT %", "class":"col-md-1"},
-        { "name" : "uom", "type":"select", "value": "", "label": "Unit of measurement", "class":"col-md-2", 
+        { "name" : "description", "type":"text", "value": "", "label": "Description", "class":"col-md-5", "required": true},
+        { "name" : "vat_percentage", "type":"text", "value": "0", "label": "VAT %", "class":"col-md-1"},
+        { "name" : "uom", "type":"select", "value": "h", "label": "Unit of measurement", "class":"col-md-2", "required": true,
             "options": [
                 {"value": "h", "text": "h"},
                 {"value": "pcs", "text": "pcs."}
             ]
         },
-        { "name" : "quantity", "type":"number", "value": "", "label": "Quantity", "class":"col-md-2"},
-        { "name" : "unit_price", "type":"number", "value": "", "label": "Unit price", "class":"col-md-2"},
-        { "name" : "id", "type":"hidden", "value": "" }
+        { "name" : "quantity", "type":"number", "value": "", "label": "Quantity", "class":"col-md-2", "required": true},
+        { "name" : "unit_price", "type":"number", "value": "", "label": "Unit price", "class":"col-md-2", "required": true},
+        { "name" : "id", "type":"hidden", "value": "0" }
     ]
 }

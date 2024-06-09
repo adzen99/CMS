@@ -1,7 +1,6 @@
 <template>
     <ConfirmPopup></ConfirmPopup>
     <tr>
-        <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
         <td>{{ invoice.series + invoice.no }}</td>
         <td>{{ (new Date(invoice.date)).toLocaleDateString() }}</td>

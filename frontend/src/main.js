@@ -15,7 +15,6 @@ import store from './store/store'
 
 import 'bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
-import 'bootstrap/dist/js/bootstrap.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -44,6 +43,7 @@ import { faHandshake } from '@fortawesome/free-solid-svg-icons'
 import { faFileContract } from '@fortawesome/free-solid-svg-icons'
 import { faTableList } from '@fortawesome/free-solid-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCircleUser)
 library.add(faCalendarDays)
@@ -69,6 +69,7 @@ library.add(faHandshake)
 library.add(faFileContract)
 library.add(faTableList)
 library.add(faCircleExclamation)
+library.add(faRightFromBracket)
 
 const app = createApp(App)
 

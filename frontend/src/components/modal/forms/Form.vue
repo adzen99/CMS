@@ -14,12 +14,12 @@
         </template>
         <template v-else="form.getItemsAction && form.itemTemplate && this.form.elements">
             <div class="col-12 d-flex flex-row-reverse mb-0">
-                <button type="button" class="btn btn-warning"><font-awesome-icon icon="fa-solid fa-circle-plus" /></button>
+                <button type="button" class="btn btn-warning" @click="addItemTemplate()"><font-awesome-icon icon="fa-solid fa-circle-plus" /></button>
             </div>
             <div v-for="(elements, idx) in this.form.elements" class="card">
                 <div class="card-header d-flex justify-content-between">
-                    No. {{ idx }}
-                    <button type="button" class="btn btn-danger"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                    No. {{ idx + 1 }}
+                    <button type="button" class="btn btn-danger" @click="removeItem(idx)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -53,8 +53,6 @@ export default {
         return {
             form : {},
             isWorking : false,
-            groupedItems: [],
-            copyTemplate: [],
         }
     },
     created() {
@@ -92,12 +90,12 @@ export default {
                         if(data.ok){
                             var elements = []
                             for(let index in data.items){
-                                this.copyTemplate = JSON.parse(JSON.stringify(this.form.itemTemplate))
-                                this.copyTemplate.forEach(item => {
+                                let copyTemplate = JSON.parse(JSON.stringify(this.form.itemTemplate))
+                                copyTemplate.forEach(item => {
                                     item.value = data.items[index][item.name]
                                     item.name = item.name + '-' + index
                                 })
-                                elements.push(this.copyTemplate)
+                                elements.push(copyTemplate)
                             }
                             if(elements){
                                 this.form.elements = elements
@@ -151,7 +149,8 @@ export default {
         checkRequired(){
             var result = false
             for(const key in this.formData){
-                if(!this.formData[key]){
+                if(this.formData[key] === ''){
+                    console.log(key)
                     this.setIsInvalid(key)
                     if(!result){ result = true }
                 }
@@ -278,6 +277,16 @@ export default {
                     }
                 }).catch(e => { console.log(e); })
             }
+        },
+        addItemTemplate(){
+            var toAdd = JSON.parse(JSON.stringify(this.form.itemTemplate))
+            toAdd.forEach(elem => {
+                elem.name += '-' + this.form.elements.length
+            })
+            this.form.elements.push(toAdd)
+        },
+        removeItem(index){
+            this.form.elements.splice(index, 1)
         }
     },
     computed: {
@@ -313,10 +322,21 @@ export default {
         },
         formData() {
             let d = {}
-            this.formElements.forEach(e => {
-                if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
-                if('value' in e){ d[e.name] = e.value }
-            })
+            if(this.form.getItemsAction && this.form.itemTemplate){
+                this.formElements.forEach(e => {
+                    e.forEach(elem =>{
+                        if('value' in elem){ d[elem.name] = elem.value }
+                    })
+                })
+                if(this.object){
+                    d['id'] = this.object.id
+                }
+            }else{
+                this.formElements.forEach(e => {
+                    if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
+                    if('value' in e){ d[e.name] = e.value }
+                })
+            }
             return d
         },
     }

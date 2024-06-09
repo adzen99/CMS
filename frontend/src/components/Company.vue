@@ -1,7 +1,6 @@
 <template>
     <ConfirmPopup></ConfirmPopup>
     <tr>
-        <td><input type="checkbox" /></td>
         <td>{{ no }}</td>
         <td><b>{{ company.name }}</b><br/><small>{{ 'CUI: ' + company.cui }}</small><br/><small>{{ 'Nr. reg. ' + company.nr_reg }}</small></td>
         <td>{{ company.locality + ', ' + company.county }}<br/><small>{{ company.address }}</small></td>

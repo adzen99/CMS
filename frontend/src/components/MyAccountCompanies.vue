@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="row m-5">
             <div class="d-flex info-card">
                 <h5>The list with all your companies</h5>
                 <button type="button" class="btn btn-warning" @click="openModalForm(addCompanyModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new company</button>
@@ -8,10 +8,9 @@
                 <div class="mb-15px">
                     <span><b>{{ companiesNumber }} in total</b></span>
                 </div>
-            <table class="table">
+            <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" /></th>
                             <th>#</th>
                             <th>Name</th>
                             <th>Address</th>
@@ -62,16 +61,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .container{
-        margin-top: 2rem;
-    }
-    h5{
-        margin-bottom: 0 !important;
-    }
-    .info-card {
-        padding: 12px;
-        border-radius: 15px;
-    }
-</style>

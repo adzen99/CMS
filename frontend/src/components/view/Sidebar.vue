@@ -1,206 +1,132 @@
-<script setup>
-    import { ref } from 'vue'
-    import logoURL from '../../assets/logo.png'
-
-    const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
-
-    const ToggleMenu = () => {
-        is_expanded.value = !is_expanded.value
-        localStorage.setItem("is_expanded", is_expanded.value)
-    }
-</script>
-
 <template>
-    <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
-		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
-		</div>
-
-		<div class="menu-toggle-wrap">
-			<button class="menu-toggle" @click="ToggleMenu">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-angles-right" /></span>
-			</button>
-		</div>
-        <div class="menu">
-			<router-link to="/" class="button">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-house" /></span>
-				<span class="text">Home</span>
-			</router-link>
-		</div>
-
-		<h3>Documents</h3>
-		<div class="menu">
-            <router-link to="/appendicies" class="button">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-lines" /></span>
-				<span class="text">Appendicies</span>
-			</router-link>
-			<router-link to="/invoices" class="button">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-invoice" /></span>
-				<span class="text">Invoices</span>
-			</router-link>
-            <router-link to="/contracts" class="button">
-				<span class="material-icons"><font-awesome-icon icon="fa-solid fa-file-contract" /></span>
-				<span class="text">Contracts</span>
-			</router-link>
-		</div>
-
-		<div class="flex"></div>
-        
-        <h3>Settings</h3>
-		<div class="menu">
-			<router-link to="/myaccount" class="button">
-				<span class="material-icons"><font-awesome-icon class="icon" icon="fa-solid fa-gears" /></span>
-				<span class="text">My account</span>
-			</router-link>
-		</div>
-	</aside>
+    <nav class="sidebar bg-body-tertiary">
+        <div class="sidebar-content">
+            <div class="sidebar-logo">
+                <router-link to="/">CMS</router-link>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                    Documente
+                </li>
+                <li class="sidebar-item">
+                    <router-link to="/appendicies" class="sidebar-link">
+                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-lines"/></span>
+                        <span class="text">Anexe</span>
+                    </router-link>
+                </li>
+                <li class="sidebar-item">
+                    <router-link to="/invoices" class="sidebar-link">
+                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-invoice"/></span>
+                        <span class="text">Facturi</span>
+                    </router-link>
+                </li>
+                <li class="sidebar-item">
+                    <router-link to="/contracts" class="sidebar-link">
+                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-contract"/></span>
+                        <span class="text">Contracte</span>
+                    </router-link>
+                </li>
+                <li class="sidebar-header">
+                    Setari
+                </li>
+                <li class="sidebar-item">
+                    <router-link to="/myaccount" class="sidebar-link">
+                        <span class="icon"><font-awesome-icon icon="fa-solid fa-gears"/></span>
+                        <span class="text">Contul meu</span>
+                    </router-link>
+                </li>
+                <!-- <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#pages"
+                        aria-expanded="false" aria-controls="pages">
+                        <i class="fa-regular fa-file-lines pe-2"></i>
+                        Pages
+                    </a>
+                    <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Analytics</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Ecommerce</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">Crypto</a>
+                        </li>
+                    </ul>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
 </template>
+<script setup>
+</script>
+<style scoped>
+    .sidebar{
+        direction: ltr;
+        max-width: 260px;
+        min-width: 260px;
+        transition: margin-left .35s ease-in-out, left .35s ease-in-out, margin-right .35s ease-in-out, right .35s ease-in-out;
+    }
+    .sidebar-content{
+        height: 100vh;
+        left: 0;
+        position: sticky;
+        top: 0;
+    }
+    a{
+        text-decoration: none;
+    }
+    .sidebar-logo {
+        padding: 1.15rem 1.5rem;
+    }
+    .sidebar-logo a {
+        color: #e9ecef;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
 
-<style lang="scss" scoped>
-    aside {
-        display: flex;
-        flex-direction: column;
+    .sidebar-nav {
+        padding: 0;
+    }
 
-        background-color: var(--dark);
-        color: var(--light);
+    .sidebar-header {
+        color: #e9ecef;
+        font-size: .75rem;
+        padding: 1.5rem 1.5rem .375rem;
+    }
 
-        width: calc(2rem + 32px);
-        overflow: hidden;
-        min-height: 100vh;
-        padding: 1rem;
+    a.sidebar-link {
+        padding: .625rem 1.625rem;
+        color: #e9ecef;
+        position: relative;
+        display: block;
+        font-size: 1rem;
+    }
 
-        transition: 0.2s ease-in-out;
+    a.sidebar-link > .icon{
+        margin-right: 0.5rem;
+    }
 
-        .flex {
-            flex: 1 1 0%;
-        }
+    .sidebar-item .router-link-active{
+        background-color: #222529;
+        border-top: 1px solid var(--bs-gray);
+        border-bottom: 1px solid var(--bs-gray);
+    }
 
-        .logo {
-            margin-bottom: 1rem;
+    .sidebar-link[data-bs-toggle="collapse"]::after {
+        border: solid;
+        border-width: 0 .075rem .075rem 0;
+        content: "";
+        display: inline-block;
+        padding: 2px;
+        position: absolute;
+        right: 1.5rem;
+        top: 1.4rem;
+        transform: rotate(-135deg);
+        transition: all .2s ease-out;
+    }
 
-            img {
-                width: 2rem;
-            }
-        }
-
-        .menu-toggle-wrap {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 1rem;
-
-            position: relative;
-            top: 0;
-            transition: 0.2s ease-in-out;
-
-            .menu-toggle {
-                transition: 0.2s ease-in-out;
-                .material-icons {
-                    font-size: 2rem;
-                    color: var(--light);
-                    transition: 0.2s ease-out;
-                }
-                
-                &:hover {
-                    .material-icons {
-                        color: var(--primary);
-                        transform: translateX(0.5rem);
-                    }
-                }
-            }
-        }
-
-        h3, .button .text {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        h3 {
-            color: var(--grey);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .menu {
-            margin: 0 -1rem;
-            margin-bottom: 1rem;
-
-            .button {
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-
-                transition: 0.2s ease-in-out;
-                padding: 0.5rem 1rem;
-
-                .material-icons {
-                    font-size: 2rem;
-                    color: var(--light);
-                    transition: 0.2s ease-in-out;
-                }
-                .text {
-                    color: var(--light);
-                    transition: 0.2s ease-in-out;
-                }
-
-                &:hover {
-                    background-color: var(--dark-alt);
-
-                    .material-icons, .text {
-                        color: var(--primary);
-                    }
-                }
-
-                &.router-link-exact-active {
-                    background-color: var(--dark-alt);
-                    border-right: 5px solid var(--primary);
-
-                    .material-icons, .text {
-                        color: var(--primary);
-                    }
-                }
-            }
-        }
-
-        .footer {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-
-            p {
-                font-size: 0.875rem;
-                color: var(--grey);
-            }
-        }
-
-        &.is-expanded {
-            width: var(--sidebar-width);
-
-            .menu-toggle-wrap {
-                top: -3rem;
-                
-                .menu-toggle {
-                    transform: rotate(-180deg);
-                }
-            }
-
-            h3, .button .text {
-                opacity: 1;
-            }
-
-            .button {
-                .material-icons {
-                    margin-right: 1rem;
-                }
-            }
-
-            .footer {
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            position: absolute;
-            z-index: 99;
-        }
+    .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+        transform: rotate(45deg);
+        transition: all .2s ease-out;
     }
 </style>

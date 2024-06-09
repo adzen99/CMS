@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Appendix;
+use App\Models\AppendixItem;
 use App\Models\Invoice;
 
 class AppendixController extends Controller
@@ -59,6 +60,7 @@ class AppendixController extends Controller
 
         if(!$countInvoices){
             Appendix::find($id)->delete();
+            AppendixItem::where('id_appendix', $id)->delete();
             $response = ['ok' => 1, 'message' => 'The appendix has been deleted!'];
         }else{
             $response['toastErrorMessage'] = implode("\n", $messages);
