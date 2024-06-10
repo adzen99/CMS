@@ -2,7 +2,9 @@
     <nav class="sidebar bg-body-tertiary">
         <div class="sidebar-content">
             <div class="sidebar-logo">
-                <router-link to="/">CMS</router-link>
+                <router-link to="/">
+                    <img src="../../assets/logo.png" height="75" width="95">
+                </router-link>
             </div>
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
@@ -77,6 +79,7 @@
     }
     .sidebar-logo {
         padding: 1.15rem 1.5rem;
+        text-align: center;
     }
     .sidebar-logo a {
         color: #e9ecef;

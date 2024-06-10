@@ -173,9 +173,9 @@
                             return response.json()
                         }).then(data =>{
                             if(data.ok){
-                                this.$toast.add({ severity: 'success', summary: 'Succes!', detail: data.message, life: 10000, closable: true });
+                                this.$toast.add({ severity: 'success', summary: 'Succes!', detail: data.message, life: 5000, closable: true });
                             }else{
-                                this.$toast.add({ severity: 'error', summary: 'Attention!', detail: data.toastErrorMessage, life: 10000, closable: true });
+                                this.$toast.add({ severity: 'error', summary: 'Attention!', detail: data.toastErrorMessage, life: 5000, closable: true });
                             }
                         }).catch(e => { console.log(e); })
                     }
@@ -200,11 +200,6 @@
 </script>
 
 <style scoped>
-    .inline-spacing {
-        display: flex;
-        gap:5px;
-        justify-content: center;
-    }
     .pdf-content {
         color:black !important;
         font-size: 0.7rem;

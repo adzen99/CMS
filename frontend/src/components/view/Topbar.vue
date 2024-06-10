@@ -1,30 +1,20 @@
-<script>
-    export default {
-        data(){
-            return {
-                currentDate: this.getCurrentDate()
-            }
-        },
-        methods: {
-            getCurrentDate(){
-                const date = new Date()
-                return this.globals.weekDays[date.getDay()] + ', ' + date.toLocaleDateString()
-            }
-        },
-        computed:{
-            loggedUser(){
-                return this.$store.state.user
-            }
-        },
-    }
-</script>
-
 <template> 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav gap-3 me-5">
-                <li class="nav-item">
-                    <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-euro-sign" />4.97 RON</span>
+                <li class="nav-item dropdown">
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        1 EUR = {{ exchangeRates.EUR }} RON
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item">1 CHF = {{ exchangeRates.CHF }} CHF</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item">1 GBP = {{ exchangeRates.GBP }} GBP</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item">1 HUF = {{ exchangeRates.HUF }} HUF</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item">1 USD = {{ exchangeRates.USD }} USD</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <span class="nav-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-calendar-days" />{{ currentDate }}</span>
@@ -53,6 +43,34 @@
         </div>
     </nav> 
 </template>
+<script>
+    export default {
+        data(){
+            return {
+                exchangeRates: []
+            }
+        },
+        created(){
+            fetch("http://localhost:8000/api/getExchangeRatesOfToday/")
+                .then(response => {
+                    return response.json()
+                }).then(data => {
+                    if(data.ok){
+                        this.exchangeRates = data.exchangeRates
+                    }
+            }).catch(e => { console.log(e) })
+        },
+        computed:{
+            loggedUser(){
+                return this.$store.state.user
+            },
+            currentDate(){
+                const date = new Date()
+                return this.globals.weekDays[date.getDay()] + ', ' + date.toISOString().slice(0,10).split('-').reverse().join('.')
+            }
+        },
+    }
+</script>
 <style scoped>
     span.icon{
         margin-right: 0.5rem;

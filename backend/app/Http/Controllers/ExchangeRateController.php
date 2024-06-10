@@ -7,7 +7,7 @@ use App\Models\ExchangeRate;
 
 class ExchangeRateController extends Controller
 {
-    function getExchangeRatesToday(Request $request){
+    function getExchangeRatesToday(){
         
         $opCurrency = [
             0 => 'AED',
@@ -73,8 +73,8 @@ class ExchangeRateController extends Controller
                     }
                 }
             }
-            $currentDate = '2024-01-01';
-            while($currentDate != '2024-06-10'){
+            $currentDate = date('Y-m-d', strtotime("-7 days"));
+            while($currentDate != date('Y-m-d', strtotime("+1 days"))){
                 if(!isset($allRates[$currentDate])){
                     $date = date('Y-m-d', strtotime($currentDate. ' -1 day'));
                     if(isset($allRates[$date])){
@@ -96,5 +96,21 @@ class ExchangeRateController extends Controller
 
         }        
         return ['ok' => 1];        
+    }
+
+    function getExchangeRatesOfToday(){
+        
+        $exchangeRates = ExchangeRate::where('date', date('Y-m-d'))->first();
+        $rates = ['EUR' => 0, 'CHF' => 0, 'GBP' => 0, 'HUF' => 0, 'USD' => 0];
+        if(!$exchangeRates){ $this->getExchangeRatesToday(); }     
+
+        $exchangeRates = (array)json_decode($exchangeRates->rates);
+        foreach($exchangeRates as $currency => $r){
+            if(isset($rates[$currency])){
+                $rates[$currency] = $r;
+            }
+        }
+
+        return ['ok' => 1, 'exchangeRates' => $rates];        
     }
 }

@@ -8,19 +8,7 @@
             }
         },
         methods: {
-            async handleLogin() {
-                // await this.axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie').then(() =>{
-                //     this.axios.post('http://127.0.0.1:8000/login',{
-                //             username: this.username,
-                //             password: this.password,
-                //         })
-                //         .then((response) => {
-                //             console.log(response);
-                //         })
-                //         .catch((err) => {
-                //             console.log(err.response.data);
-                //         })
-                // })
+            async handleLogin() {        
                 this.$router.push("/")
             },
             async handleLogout() {
@@ -34,8 +22,6 @@
                 .catch((err) => {
                     console.log(err.response.data);
                 })
-
-                // this.$router.push("/")
             }
         },
     }

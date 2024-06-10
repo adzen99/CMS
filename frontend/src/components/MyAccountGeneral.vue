@@ -21,7 +21,6 @@
                     }
                 }
                 toSend['id_user'] = this.$store.state.user.id
-                console.log(toSend)
 
                 await fetch("http://127.0.0.1:8000/api/setUserInfo", {
                     method: "PUT",
@@ -31,7 +30,6 @@
                     },
                     body: JSON.stringify(toSend)
                 }).then(response => {
-                    console.log(response)
                 }).catch(e => {
                     console.log(e);
                 })

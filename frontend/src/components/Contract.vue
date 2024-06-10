@@ -59,9 +59,9 @@
                             return response.json()
                         }).then(data =>{
                             if(data.ok){
-                                this.$toast.add({ severity: 'success', summary: 'Succes!', detail: data.message, life: 10000, closable: true });
+                                this.$toast.add({ severity: 'success', summary: 'Succes!', detail: data.message, life: 5000, closable: true });
                             }else{
-                                this.$toast.add({ severity: 'error', summary: 'Attention!', detail: data.toastErrorMessage, life: 10000, closable: true });
+                                this.$toast.add({ severity: 'error', summary: 'Attention!', detail: data.toastErrorMessage, life: 5000, closable: true });
                             }
                         }).catch(e => { console.log(e); })
                     }
@@ -75,39 +75,3 @@
         }
     }
 </script>
-<style scoped>
-    .inline-spacing {
-        display: flex;
-        gap:5px;
-        justify-content: center;
-    }
-    td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-
-    tr:hover {
-        background-color: #f5f5f5;
-    }
-
-    @media screen and (max-width: 600px) {
-        tr {
-            border-bottom: 2px solid #ddd;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        td {
-            border-bottom: none;
-            display: block;
-            text-align: right;
-        }
-
-        td:before {
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-        }
-    }
-</style>

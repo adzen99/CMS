@@ -20,6 +20,13 @@ table th, table td {
     text-align: center !important;
     vertical-align: middle;
 }
+
+.inline-spacing {
+    display: flex;
+    gap:0.5rem;
+    justify-content: center;
+}
+
 .w-100{
     width:100%;
 }
@@ -42,7 +49,6 @@ table th, table td {
 }
 
 .p-confirm-popup {
-    /* border: 1px solid #495057 !important; */
     background-color: #343a40 !important;
     color: white !important;
 }
@@ -53,6 +59,32 @@ table th, table td {
 
 .p-toast-message {
     background-color: #343a40;
+    color: white;
+    border: unset;
+}
+
+.p-toast-message.p-toast-message-success {
+    background: #00a65a;
+}
+
+.p-toast-message.p-toast-message-success svg {
+    color: darkgreen;
+}
+
+.p-toast-message.p-toast-message-error {
+    background: #d33724;
+}
+
+.p-toast-message.p-toast-message-error svg {
+    color: darkred;
+}
+
+.p-toast-message.p-toast-message-success .p-toast-icon-close:hover {
+    background: radial-gradient(#2b874b, #00a65a);
+}
+
+.p-toast-message.p-toast-message-error .p-toast-icon-close:hover {
+    background: radial-gradient(#d33724, #a62819);
 }
 
 .p-toast-detail {

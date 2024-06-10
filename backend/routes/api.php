@@ -67,6 +67,7 @@ Route::middleware('cors')->group(function(){
     Route::get('getMyInvoices/{id_user}', [InvoiceController::class, 'getMyInvoices']);
 
     Route::get('getExchangeRatesToday', [ExchangeRateController::class, 'getExchangeRatesToday']);
+    Route::get('getExchangeRatesOfToday', [ExchangeRateController::class, 'getExchangeRatesOfToday']);
 
     Route::get('getCountiesOptions', [CountyController::class, 'getCountiesOptions']);
 

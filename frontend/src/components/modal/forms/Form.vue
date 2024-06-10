@@ -150,7 +150,6 @@ export default {
             var result = false
             for(const key in this.formData){
                 if(this.formData[key] === ''){
-                    console.log(key)
                     this.setIsInvalid(key)
                     if(!result){ result = true }
                 }
