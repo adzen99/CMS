@@ -75,6 +75,10 @@ table th, table td {
     background: #d33724;
 }
 
+.p-toast-message.p-toast-message-info {
+    background: #00c0ef;
+}
+
 .p-toast-message.p-toast-message-error svg {
     color: darkred;
 }
@@ -85,6 +89,10 @@ table th, table td {
 
 .p-toast-message.p-toast-message-error .p-toast-icon-close:hover {
     background: radial-gradient(#d33724, #a62819);
+}
+
+.p-toast-message.p-toast-message-info .p-toast-icon-close:hover {
+    background: radial-gradient(#08819e, #00c0ef);
 }
 
 .p-toast-detail {

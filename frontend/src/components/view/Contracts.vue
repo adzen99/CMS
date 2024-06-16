@@ -36,7 +36,11 @@
     export default {
         components : { Contract, ModalForm},
         mounted(){
-            fetch("http://localhost:8000/api/getMyContracts/" + this.$store.state.user.id)
+            fetch("http://localhost:8000/api/getMyContracts/" + this.$store.state.user.id,{
+                headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                }
+            })
             .then(response => {
                 return response.json()
             }).then(data => {

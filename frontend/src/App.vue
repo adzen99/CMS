@@ -23,7 +23,7 @@
     <div class="wrapper">
         <Sidebar v-if="$route.path != '/login'"/>
         <div class="main">
-            <TopBar/>
+            <TopBar v-if="$route.path != '/login'"/>
             <main class="content">
                 <router-view/>
             </main>

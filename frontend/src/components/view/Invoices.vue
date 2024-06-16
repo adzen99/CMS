@@ -44,7 +44,11 @@
             }
         },
         mounted(){
-            fetch("http://localhost:8000/api/getMyInvoices/" + this.$store.state.user.id)
+            fetch("http://localhost:8000/api/getMyInvoices/" + this.$store.state.user.id, {
+                headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                }
+            })
             .then(response => {
                 return response.json()
             }).then(data => {

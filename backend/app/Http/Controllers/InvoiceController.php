@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Appendix;
 use App\Models\ExchangeRate;
-
+use App\Models\AppendixItem;
 class InvoiceController extends Controller
 {
     function add(Request $request){
@@ -140,5 +141,29 @@ class InvoiceController extends Controller
                             ->join('companies', 'companies.id', '=', 'invoices.id_provider')
                             ->count();
         return ['ok' => 1, 'myInvoices' => $myInvoices, 'countMyInvoices' => $countMyInvoices];        
+    }
+
+    function getInvoiceItems(Request $request){
+        $id_invoice = $request->route('id_invoice');
+        $invoice = Invoice::where('id', $id_invoice)->first();
+        if($invoice){
+            $items = AppendixItem::select('appendicies_items.id AS id', 'appendicies_items.description AS description', DB::raw("SUM(appendicies_items.quantity * appendicies_items.unit_price) AS value"))
+                    ->where('appendicies_items.id_appendix', $invoice->id_appendix)
+                    ->groupBy('appendicies_items.description')
+                    ->get();
+            $appendix = Appendix::where('id', $invoice->id_appendix)->first();
+            $exchangeRateToRON = null;
+            if($appendix && $appendix->currency !== 'RON'){
+                $exchangeRate = ExchangeRate::where('date', $appendix->date)->first();
+                if($exchangeRate){
+                    $decodeRates = (array)json_decode($exchangeRate->rates);
+                    $exchangeRateToRON = isset($decodeRates[$appendix->currency]) ? $decodeRates[$appendix->currency] : '-';
+                }
+            }
+            return ['ok' => 1, 'items' => $items, 'exchangeRateToRON' => $exchangeRateToRON];        
+        }else{
+            return ['ok' => 0, 'message' => 'The invoice does not exist!'];        
+        }
+       
     }
 }

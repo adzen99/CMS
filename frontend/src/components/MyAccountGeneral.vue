@@ -27,6 +27,7 @@
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                     },
                     body: JSON.stringify(toSend)
                 }).then(response => {

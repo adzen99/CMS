@@ -83,7 +83,11 @@ export default {
                         })
                     }
                     params = params.join('/')
-                    fetch("http://localhost:8000/api/getAppendixItems/" + params)
+                    fetch("http://localhost:8000/api/getAppendixItems/" + params, {
+                        headers:{
+                            'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                        }
+                    })
                     .then(response => {
                         return response.json()
                     }).then(data => {
@@ -128,7 +132,11 @@ export default {
                                     action += '/' + this.formData[name]
                                 }
                                 if(action){
-                                    fetch(action)
+                                    fetch(action, {
+                                        headers:{
+                                            'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                                        }
+                                    })
                                     .then(response => {
                                         return response.json()
                                     }).then(data => {
@@ -251,6 +259,7 @@ export default {
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                     },
                     body: JSON.stringify(this.formData)
                 }).then(response => {

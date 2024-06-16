@@ -29,7 +29,7 @@
                     </router-link>
                 </li>
                 <li class="sidebar-header">
-                    Setari
+                    Setări
                 </li>
                 <li class="sidebar-item">
                     <router-link to="/myaccount" class="sidebar-link">

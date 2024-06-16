@@ -79,7 +79,7 @@
                         <td><b>{{ appendix.value + ' ' + appendix.currency }}</b></td>
                     </tr>
                 </table>
-                <p class="mt-2 exchange-rate-line">CURS VALUTAR 1 {{ appendix.currency }} = {{ exchangeRateToRON }} RON</p>
+                <p class="mt-2 exchange-rate-line" v-if="exchangeRateToRON !== null">CURS VALUTAR 1 {{ appendix.currency }} = {{ exchangeRateToRON }} RON</p>
             </div>
             <div class="wrapper footer-pdf">
                 <div class="provider">
@@ -135,7 +135,11 @@
             }
         },
         async mounted(){
-            await fetch("http://localhost:8000/api/getAppendixItems/" + this.appendix.id)
+            await fetch("http://localhost:8000/api/getAppendixItems/" + this.appendix.id,{
+                headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                }
+            })
                 .then(response => {
                     return response.json()
                 }).then(data => {
@@ -143,7 +147,7 @@
                         this.items = data.items
                         this.exchangeRateToRON = data.exchangeRateToRON
                     }
-            }).catch(e => { console.log(e) })
+                }).catch(e => { console.log(e) })
         },
         methods: {
             openModalForm(source){
@@ -167,6 +171,7 @@
                             headers: {
                                 "Content-Type": "application/json",
                                 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                                'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
                             },
                             body: JSON.stringify({'id': this.appendix.id})
                         }).then(response => {

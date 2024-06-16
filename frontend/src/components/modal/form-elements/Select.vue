@@ -24,7 +24,11 @@
       if(this.formElement.optionsAction){
         var params = this?.optionsActionParamsValues || []
         params = params.join('/')
-        await fetch(this.formElement.optionsAction + params)
+        await fetch(this.formElement.optionsAction + params,{
+                headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                }
+            })
         .then(response => {
             return response.json()
         }).then(data => {

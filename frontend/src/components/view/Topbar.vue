@@ -32,7 +32,7 @@
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <router-link to="/" class="dropdown-item">
+                            <router-link to="/login" class="dropdown-item" @click="handleLogout()">
                                 <span class="icon"><font-awesome-icon icon="fa-solid fa-right-from-bracket" /></span>
                                 <span class="text">Log out</span>
                             </router-link>
@@ -51,14 +51,18 @@
             }
         },
         created(){
-            fetch("http://localhost:8000/api/getExchangeRatesOfToday/")
+            fetch("http://localhost:8000/api/getExchangeRatesOfToday/",{
+                headers:{
+                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                }
+            })
                 .then(response => {
                     return response.json()
                 }).then(data => {
                     if(data.ok){
                         this.exchangeRates = data.exchangeRates
                     }
-            }).catch(e => { console.log(e) })
+                }).catch(e => { console.log(e) })
         },
         computed:{
             loggedUser(){
@@ -69,6 +73,23 @@
                 return this.globals.weekDays[date.getDay()] + ', ' + date.toISOString().slice(0,10).split('-').reverse().join('.')
             }
         },
+        methods: {
+            handleLogout(){
+                fetch("http://127.0.0.1:8000/api/logout", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Access-Control-Allow-Credentials": true,
+                        'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                    },
+                    credentials: 'include',
+                }).then(() => {
+                    this.$router.push("/login")
+                    localStorage.removeItem('jwt')
+                }).catch(e => { console.log(e) })
+                this.$toast.add({ severity: 'info', summary: 'Info!', detail: 'Logout cu succes!', life: 5000, closable: true });
+            }
+        }
     }
 </script>
 <style scoped>
