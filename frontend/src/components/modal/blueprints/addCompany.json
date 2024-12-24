@@ -1,6 +1,6 @@
 {
     "title": "Add a company",
-    "action" : "http://localhost:8000/api/addCompany/",
+    "action" : "http://localhost:8000/add_company/",
     "method" : "POST",
     "buttons" : { "submit" : "Add company", "close" : "Close" },
     "modalSize" : "lg",
@@ -8,21 +8,11 @@
     "elements" : [
         { "name" : "name", "type":"text", "value": "", "label": "Name", "class":"col-md-6", "required": true },
         { "name" : "address", "type":"text", "value": "", "label": "Address", "class":"col-md-6", "required": true },
-        { "name" : "id_county", "type":"select", "value": "", "label": "County", "class":"col-md-6", "required": true, "optionsAction": "http://localhost:8000/api/getCountiesOptions"},
-        { "name" : "id_locality", "type":"select", "value": "", "label": "Locality", "class":"col-md-6", "required": true},
+        { "name" : "id_county", "type":"text", "value": "", "label": "County", "class":"col-md-6", "required": true},
+        { "name" : "id_locality", "type":"text", "value": "", "label": "Locality", "class":"col-md-6", "required": true},
         { "name" : "cui", "type":"text", "value": "", "label": "CUI", "class":"col-md-6", "required": true},
         { "name" : "nr_reg", "type":"text", "value": "", "label": "Nr. reg.", "class":"col-md-6", "required": true},
-        { "name" : "id_bank", "type":"select", "value": "", "label": "Bank", "class":"col-md-6", "required": true, "optionsAction" : "http://localhost:8000/api/getBanksOptions" },
-        { "name" : "iban", "type":"text", "value": "", "label": "IBAN", "class":"col-md-6", "required": true },
+        { "name" : "iban", "type":"text", "value": "", "label": "IBAN", "class":"col-md-12", "required": true },
         { "name" : "id_user", "type":"hidden", "value": "", "label": ""}
-    ],
-    "dependencies": [
-        {
-            "id_county": {
-                "affected": [
-                    {"name": "id_locality", "action": "http://localhost:8000/api/getOptionsLocalitiesOfCounty"}
-                ]
-            }
-        }
     ]
 }

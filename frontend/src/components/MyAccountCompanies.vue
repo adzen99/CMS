@@ -34,16 +34,17 @@
     export default {
         components : { Company, ModalForm },
         async mounted() {
-            fetch("http://localhost:8000/api/getMyCompanies/" + this.$store.state.user.id,{
-                headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                }
+            fetch("http://localhost:8000/get_my_companies/" + this.$store.state.user.id,{
+                method: "GET"
+                // headers:{
+                //     'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                // }
             })
             .then(response => {
                 return response.json()
             }).then(data => {
-                this.companiesNumber = data.countMyCompanies
-                this.companies = data.myCompanies
+                this.companies = data
+                this.companiesNumber = this.companies.length
             }).catch(e => { console.log(e) })
         },
         data(){
