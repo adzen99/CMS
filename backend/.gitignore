@@ -1,0 +1,32 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment
+.env/
+.venv/
+env/
+venv/
+
+# FastAPI specific
+instance/
+.webassets-cache
+
+# IDEs and Editors
+.vscode/
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs
+*.log
+
+# Test output
+.coverage
+nosetests.xml
+pytest-debug.log
+
+app/db_images/*
+!app/db_images/.gitkeep
