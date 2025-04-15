@@ -4,79 +4,22 @@ import App from './App.vue'
 import PrimeVue from "primevue/config"
 import ConfirmationService from 'primevue/confirmationservice'
 import ToastService from 'primevue/toastservice'
+import Ripple from 'primevue/ripple';
 
-// import "primeflex/primeflex.css"
-import "primevue/resources/themes/aura-light-green/theme.css"
-import "primevue/resources/primevue.min.css"
+import 'primevue/resources/themes/lara-dark-blue/theme.css'; // dark theme
 
 import router from './router'
 import globals from './globals'
 import store from './store/store'
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css'; // This one is crucial for icons
 
-import 'bootstrap'
-import "bootstrap/dist/css/bootstrap.min.css"
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons'
-import { faCalendarDays } from '@fortawesome/free-solid-svg-icons'
-import { faEuroSign } from '@fortawesome/free-solid-svg-icons'
-import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
-import { faFileLines } from '@fortawesome/free-solid-svg-icons'
-import { faGears } from '@fortawesome/free-solid-svg-icons'
-import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
-import { faHouse } from '@fortawesome/free-solid-svg-icons'
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons'
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
-import { faIdCard } from '@fortawesome/free-solid-svg-icons'
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { faSquarePhone } from '@fortawesome/free-solid-svg-icons'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faPhone } from '@fortawesome/free-solid-svg-icons'
-import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
-import { faHandshake } from '@fortawesome/free-solid-svg-icons'
-import { faFileContract } from '@fortawesome/free-solid-svg-icons'
-import { faTableList } from '@fortawesome/free-solid-svg-icons'
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faCircleUser)
-library.add(faCalendarDays)
-library.add(faEuroSign)
-library.add(faFileInvoice)
-library.add(faFileLines)
-library.add(faGears)
-library.add(faAnglesRight)
-library.add(faHouse)
-library.add(faFilePdf)
-library.add(faPenToSquare)
-library.add(faTrashCan)
-library.add(faCirclePlus)
-library.add(faIdCard)
-library.add(faBriefcase)
-library.add(faUser)
-library.add(faSquarePhone)
-library.add(faEnvelope)
-library.add(faPhone)
-library.add(faFloppyDisk)
-library.add(faRightToBracket)
-library.add(faHandshake)
-library.add(faFileContract)
-library.add(faTableList)
-library.add(faCircleExclamation)
-library.add(faRightFromBracket)
 
 const app = createApp(App)
 
 app.config.globalProperties.globals = globals
 
-app.component('font-awesome-icon', FontAwesomeIcon)
-
-app.use(router).use(store).use(PrimeVue, {ripple: true}).use(ConfirmationService).use(ToastService)
+app.use(router).use(store).use(PrimeVue, { ripple: true }).use(ConfirmationService).use(ToastService)
+app.directive('ripple', Ripple);
 
 app.mount('#app')
