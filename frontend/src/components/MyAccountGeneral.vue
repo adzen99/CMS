@@ -10,30 +10,29 @@
         },
         methods: {
             setLoggedUser(){
-                this.user = this.$store.state.user
             },
             async saveData(){
-                var form = document.getElementById('user-info-form')
-                var toSend = {}
-                for ( var i = 0; i < form.elements.length; i++ ) {
-                    if(form.elements[i].name){
-                        toSend[form.elements[i].name] = form.elements[i].value;
-                    }
-                }
-                toSend['id_user'] = this.$store.state.user.id
+                // var form = document.getElementById('user-info-form')
+                // var toSend = {}
+                // for ( var i = 0; i < form.elements.length; i++ ) {
+                //     if(form.elements[i].name){
+                //         toSend[form.elements[i].name] = form.elements[i].value;
+                //     }
+                // }
+                // toSend['id_user'] = this.$store.state.user.id
 
-                await fetch("http://127.0.0.1:8000/api/setUserInfo", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-                        'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                    },
-                    body: JSON.stringify(toSend)
-                }).then(response => {
-                }).catch(e => {
-                    console.log(e);
-                })
+                // await fetch("http://127.0.0.1:8000/api/setUserInfo", {
+                //     method: "PUT",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+                //         'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+                //     },
+                //     body: JSON.stringify(toSend)
+                // }).then(response => {
+                // }).catch(e => {
+                //     console.log(e);
+                // })
             }
         },
     }
@@ -41,10 +40,10 @@
 
 <template>
     <div class="card mt-1rem">
-        <div class="card-header"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-user" />{{ user.first_name + ' ' + user.last_name }}</div>
+        <div class="card-header">{{ user.first_name + ' ' + user.last_name }}</div>
         <div class="card-body">
-            <span class="card-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-envelope" />{{ user.email }}</span>
-            <span class="card-link"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-square-phone" />{{ user.phone }}</span>
+            <span class="card-link">{{ user.email }}</span>
+            <span class="card-link">{{ user.phone }}</span>
         </div>
     </div>
     <div class="card mt-1rem">
@@ -81,12 +80,12 @@
                         <div class="col-6">
                             <label for="phone_form" class="form-label">Phone</label>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon3"><font-awesome-icon icon="fa-solid fa-phone" /></span>
+                                <span class="input-group-text" id="basic-addon3"></span>
                                 <input name="phone" type="text" class="form-control" id="phone_form" aria-describedby="basic-addon3" v-model="user.phone">
                             </div>
                         </div>
                         <div class="col-12 d-flex justify-content-center align-content-center">
-                            <button type="button" class="btn btn-success" @click="saveData"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-floppy-disk" />Save</button>
+                            <button type="button" class="btn btn-success" @click="saveData">Save</button>
                         </div>
                     </div>
                 </form>

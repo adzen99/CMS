@@ -2,7 +2,7 @@
     <div class="row m-5">
         <div class="d-flex info-card">
             <h5>The list with the invoices</h5>
-            <button type="button" class="btn btn-warning" @click="openModalForm(addInvoiceModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new invoice</button>
+            <button type="button" class="btn btn-warning" @click="openModalForm(addInvoiceModal)">Add a new invoice</button>
         </div>
         <section>
             <div class="mb-15px">
@@ -44,17 +44,17 @@
             }
         },
         mounted(){
-            fetch("http://localhost:8000/api/getMyInvoices/" + this.$store.state.user.id, {
-                headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                }
-            })
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.invoices = data.myInvoices
-                this.invoicesNumber = data.countMyInvoices
-            }).catch(e => { console.log(e) })
+            // fetch("http://localhost:8000/api/getMyInvoices/" + this.$store.state.user.id, {
+            //     headers:{
+            //         'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+            //     }
+            // })
+            // .then(response => {
+            //     return response.json()
+            // }).then(data => {
+            //     this.invoices = data.myInvoices
+            //     this.invoicesNumber = data.countMyInvoices
+            // }).catch(e => { console.log(e) })
         },
         methods: {
             openModalForm(source){

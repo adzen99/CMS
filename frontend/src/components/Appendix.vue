@@ -8,10 +8,10 @@
         <td>{{ appendix.value + ' ' + appendix.currency }}</td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-secondary" @click="generatePDF()"><font-awesome-icon icon="fa-solid fa-file-pdf" /></button>
-                <button type="button" class="btn btn-info" @click="openModalForm(addAppendixItemModal)"><font-awesome-icon icon="fa-solid fa-table-list" /></button>
-                <button type="button" class="btn btn-primary" @click="openModalForm(editAppendixModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
-                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                <button type="button" class="btn btn-secondary" @click="generatePDF()"></button>
+                <button type="button" class="btn btn-info" @click="openModalForm(addAppendixItemModal)"></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editAppendixModal)"></button>
+                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"></button>
             </div>
         </td>
     </tr>
@@ -86,7 +86,7 @@
                     <ul>
                         <li><b>FURNIZOR</b></li>
                         <li><b>{{ appendix.provider }}</b></li>
-                        <li class="mt-2">{{ this.$store.state.user.first_name + ' ' + this.$store.state.user.last_name }}</li>
+                        <li class="mt-2">{{ 'vas' }}</li>
                     </ul>
                 </div>
                 <div class="beneficiary">
@@ -108,8 +108,6 @@
     import addAppendixItem from "./modal/blueprints/addAppendixItem.json"
     import ModalForm from "./modal/ModalForm.vue"
     import ConfirmPopup from 'primevue/confirmpopup'
-
-    import jsPDF from 'jspdf'
 
     export default {
         components : {ModalForm, ConfirmPopup},
@@ -186,19 +184,7 @@
                     }
                 });
             },
-            generatePDF(){
-                const doc = new jsPDF()
-                const html = this.$refs.pdfContent.innerHTML
-                var pdfTitle = this.appendix.series + this.appendix.no + ' - ' + this.appendix.beneficiary
-                doc.html(html, {
-                    callback: function(doc){
-                        // doc.output('dataurlnewwindow', {filename: pdfTitle})
-                        doc.save(pdfTitle + '.pdf')
-                    },
-                    y: 10,
-                    width: 200,
-                    windowWidth: 650
-                })    
+            generatePDF(){ 
             }
         }
     }

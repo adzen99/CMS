@@ -2,7 +2,7 @@
     <div class="row m-5">
             <div class="d-flex info-card">
                 <h5>The list with all your companies</h5>
-                <button type="button" class="btn btn-warning" @click="openModalForm(addCompanyModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new company</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addCompanyModal)">Add a new company</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -34,18 +34,18 @@
     export default {
         components : { Company, ModalForm },
         async mounted() {
-            fetch("http://localhost:8000/get_my_companies/" + this.$store.state.user.id,{
-                method: "GET"
-                // headers:{
-                //     'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                // }
-            })
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.companies = data
-                this.companiesNumber = this.companies.length
-            }).catch(e => { console.log(e) })
+            // fetch("http://localhost:8000/get_my_companies/" + this.$store.state.user.id,{
+            //     method: "GET"
+            //     // headers:{
+            //     //     'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+            //     // }
+            // })
+            // .then(response => {
+            //     return response.json()
+            // }).then(data => {
+            //     this.companies = data
+            //     this.companiesNumber = this.companies.length
+            // }).catch(e => { console.log(e) })
         },
         data(){
             return {

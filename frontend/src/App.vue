@@ -21,7 +21,7 @@
     <Toast />
 
     <div class="wrapper">
-        <Sidebar v-if="$route.path != '/login'"/>
+        <!-- <Sidebar v-if="$route.path != '/login'"/> -->
         <div class="main">
             <TopBar v-if="$route.path != '/login'"/>
             <main class="content">

@@ -12,19 +12,19 @@
                 </li>
                 <li class="sidebar-item">
                     <router-link to="/appendicies" class="sidebar-link">
-                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-lines"/></span>
+                        <span class="icon"></span>
                         <span class="text">Anexe</span>
                     </router-link>
                 </li>
                 <li class="sidebar-item">
                     <router-link to="/invoices" class="sidebar-link">
-                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-invoice"/></span>
+                        <span class="icon"></span>
                         <span class="text">Facturi</span>
                     </router-link>
                 </li>
                 <li class="sidebar-item">
                     <router-link to="/contracts" class="sidebar-link">
-                        <span class="icon"><font-awesome-icon icon="fa-solid fa-file-contract"/></span>
+                        <span class="icon"></span>
                         <span class="text">Contracte</span>
                     </router-link>
                 </li>
@@ -33,7 +33,7 @@
                 </li>
                 <li class="sidebar-item">
                     <router-link to="/myaccount" class="sidebar-link">
-                        <span class="icon"><font-awesome-icon icon="fa-solid fa-gears"/></span>
+                        <span class="icon"></span>
                         <span class="text">Contul meu</span>
                     </router-link>
                 </li>

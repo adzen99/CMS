@@ -2,7 +2,7 @@
     <div class="row m-5">
             <div class="d-flex info-card">
                 <h5>The list with all your partners</h5>
-                <button type="button" class="btn btn-warning" @click="openModalForm(addPartnerModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new partner</button>
+                <button type="button" class="btn btn-warning" @click="openModalForm(addPartnerModal)">Add a new partner</button>
             </div>
             <section>
                 <div class="mb-15px">
@@ -33,17 +33,17 @@
     export default {
         components : { Partner, ModalForm },
        async mounted() {
-            fetch("http://localhost:8000/api/getMyPartners/" + this.$store.state.user.id, {
-                headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                }
-            })
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.partnersNumber = data.countMyPartners
-                this.partners = data.myPartners
-            }).catch(e => { console.log(e) })
+            // fetch("http://localhost:8000/api/getMyPartners/" + this.$store.state.user.id, {
+            //     headers:{
+            //         'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+            //     }
+            // })
+            // .then(response => {
+            //     return response.json()
+            // }).then(data => {
+            //     this.partnersNumber = data.countMyPartners
+            //     this.partners = data.myPartners
+            // }).catch(e => { console.log(e) })
         },
         data(){
             return {

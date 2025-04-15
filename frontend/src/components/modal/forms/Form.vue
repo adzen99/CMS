@@ -14,12 +14,12 @@
         </template>
         <template v-else="form.getItemsAction && form.itemTemplate && this.form.elements">
             <div class="col-12 d-flex flex-row-reverse mb-0">
-                <button type="button" class="btn btn-warning" @click="addItemTemplate()"><font-awesome-icon icon="fa-solid fa-circle-plus" /></button>
+                <button type="button" class="btn btn-warning" @click="addItemTemplate()"></button>
             </div>
             <div v-for="(elements, idx) in this.form.elements" class="card">
                 <div class="card-header d-flex justify-content-between">
                     No. {{ idx + 1 }}
-                    <button type="button" class="btn btn-danger" @click="removeItem(idx)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                    <button type="button" class="btn btn-danger" @click="removeItem(idx)"></button>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -340,10 +340,10 @@ export default {
                     d['id'] = this.object.id
                 }
             }else{
-                this.formElements.forEach(e => {
-                    if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
-                    if('value' in e){ d[e.name] = e.value }
-                })
+                // this.formElements.forEach(e => {
+                //     if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
+                //     if('value' in e){ d[e.name] = e.value }
+                // })
             }
             return d
         },

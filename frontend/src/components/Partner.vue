@@ -6,8 +6,8 @@
         <td>{{ partner.locality + ', ' + partner.county }}<br/><small>{{ partner.address }}</small></td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary" @click="openModalForm(editPartnerModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
-                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editPartnerModal)"></button>
+                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"></button>
             </div>
         </td>
     </tr>

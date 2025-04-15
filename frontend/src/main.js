@@ -1,25 +1,30 @@
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 import './style.css'
-import App from './App.vue'
-import PrimeVue from "primevue/config"
-import ConfirmationService from 'primevue/confirmationservice'
-import ToastService from 'primevue/toastservice'
-import Ripple from 'primevue/ripple';
-
-import 'primevue/resources/themes/lara-dark-blue/theme.css'; // dark theme
-
+import 'primeicons/primeicons.css';
 import router from './router'
-import globals from './globals'
-import store from './store/store'
-import 'primevue/resources/primevue.min.css';
-import 'primeicons/primeicons.css'; // This one is crucial for icons
-
+import App from './App.vue'
+import Aura from '@primevue/themes/aura';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import axios from 'axios';
+// import { config } from './config'
 
 const app = createApp(App)
 
-app.config.globalProperties.globals = globals
+app.use(router)
+app.use(PrimeVue, {
+    theme: {
+        preset: Aura
+    }
+})
+app.use(ToastService)
+app.use(ConfirmationService)
 
-app.use(router).use(store).use(PrimeVue, { ripple: true }).use(ConfirmationService).use(ToastService)
-app.directive('ripple', Ripple);
+app.config.globalProperties.$axios = axios;
+// app.config.globalProperties.$apiUrl = config.apiUrl;
+// app.config.globalProperties.$baseUrl = config.baseUrl;
 
 app.mount('#app')

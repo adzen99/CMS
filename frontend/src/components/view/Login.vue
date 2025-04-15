@@ -1,7 +1,7 @@
 <template>
     <div class="body-container">
         <div class="container">
-            <h2><font-awesome-icon icon="fa-solid fa-right-to-bracket" /></h2>
+            <h2></h2>
             <div>
                 <div class="col-12 mb-3">
                     <label class="form-label">Username</label>
@@ -35,45 +35,45 @@
         },
         methods: {
             async handleLogin() {       
-                this.invalid = false 
-                await fetch("http://127.0.0.1:8000/api/login", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Access-Control-Allow-Credentials": true,
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({'username': this.username, 'password': this.password})
-                }).then(response => {
-                    if(response.status == 401){
-                        this.invalid = true
-                        this.$toast.add({ severity: 'error', summary: 'Failed!', detail: 'Invalid credentials!', life: 5000, closable: true })
-                    }else if(response.status == 200){
-                        this.$router.push("/")
-                        this.$toast.add({ severity: 'success', summary: 'Succes!', detail: 'Login cu succes!', life: 5000, closable: true })
-                        return response.json();
-                    }
-                }).then(data => {
-                    if(data.token){
-                        localStorage.setItem('jwt', data.token)
-                        fetch("http://localhost:8000/api/authUser/",
-                            {
-                                method: 'GET', 
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json',
-                                    "Access-Control-Allow-Credentials": true,
-                                    'Authorization': 'Bearer ' + data.token,
-                                },
-                        }).then(response => {
-                            return response.json()
-                        }).then(data => {
-                            console.log(data)
-                            this.$store.state.user = data
+                // this.invalid = false 
+                // await fetch("http://127.0.0.1:8000/api/login", {
+                //     method: "POST",
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         "Access-Control-Allow-Credentials": true,
+                //     },
+                //     credentials: 'include',
+                //     body: JSON.stringify({'username': this.username, 'password': this.password})
+                // }).then(response => {
+                //     if(response.status == 401){
+                //         this.invalid = true
+                //         this.$toast.add({ severity: 'error', summary: 'Failed!', detail: 'Invalid credentials!', life: 5000, closable: true })
+                //     }else if(response.status == 200){
+                //         this.$router.push("/")
+                //         this.$toast.add({ severity: 'success', summary: 'Succes!', detail: 'Login cu succes!', life: 5000, closable: true })
+                //         return response.json();
+                //     }
+                // }).then(data => {
+                //     if(data.token){
+                //         localStorage.setItem('jwt', data.token)
+                //         fetch("http://localhost:8000/api/authUser/",
+                //             {
+                //                 method: 'GET', 
+                //                 headers: {
+                //                     'Accept': 'application/json',
+                //                     'Content-Type': 'application/json',
+                //                     "Access-Control-Allow-Credentials": true,
+                //                     'Authorization': 'Bearer ' + data.token,
+                //                 },
+                //         }).then(response => {
+                //             return response.json()
+                //         }).then(data => {
+                //             console.log(data)
+                //             this.$store.state.user = data
 
-                        }).catch(e => { console.log(e) })
-                    }
-                }).catch(e => { console.log(e) })
+                //         }).catch(e => { console.log(e) })
+                //     }
+                // }).catch(e => { console.log(e) })
             },
         },
     }

@@ -2,7 +2,7 @@
     <div class="row m-5">
         <div class="d-flex info-card">
             <h5>The list with the contracts</h5>
-            <button type="button" class="btn btn-warning" @click="openModalForm(addContractModal)"><font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-plus" />Add a new contract</button>
+            <button type="button" class="btn btn-warning" @click="openModalForm(addContractModal)">Add a new contract</button>
         </div>
         <section>
             <div class="mb-15px">
@@ -36,17 +36,17 @@
     export default {
         components : { Contract, ModalForm},
         mounted(){
-            fetch("http://localhost:8000/api/getMyContracts/" + this.$store.state.user.id,{
-                headers:{
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
-                }
-            })
-            .then(response => {
-                return response.json()
-            }).then(data => {
-                this.contracts = data.myContracts
-                this.contractsNumber = data.countMyContracts
-            }).catch(e => { console.log(e) })
+            // fetch("http://localhost:8000/api/getMyContracts/" + this.$store.state.user.id,{
+            //     headers:{
+            //         'Authorization': 'Bearer ' + localStorage.getItem('jwt'),
+            //     }
+            // })
+            // .then(response => {
+            //     return response.json()
+            // }).then(data => {
+            //     this.contracts = data.myContracts
+            //     this.contractsNumber = data.countMyContracts
+            // }).catch(e => { console.log(e) })
         },
         data(){
             return {

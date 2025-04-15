@@ -9,7 +9,6 @@
                     </div>
                     <div class="modal-body"> 
                         <div v-if="form.alertDanger" class="alert alert-danger" role="alert">
-                            <font-awesome-icon class="icon-mr-7" icon="fa-solid fa-circle-exclamation" />
                             {{ form?.alertDanger }}
                         </div>
                         <Form :data-source="form" :object="object" @submitted="submitted" @trigger-alert-danger="triggerAlertDanger" ref="form"/>                       

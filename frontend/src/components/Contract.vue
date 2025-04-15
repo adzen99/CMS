@@ -8,8 +8,8 @@
         <td>{{ contract.beneficiary }}</td>
         <td>
             <div class="inline-spacing">
-                <button type="button" class="btn btn-primary" @click="openModalForm(editContractModal)"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></button>
-                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"><font-awesome-icon icon="fa-solid fa-trash-can" /></button>
+                <button type="button" class="btn btn-primary" @click="openModalForm(editContractModal)"></button>
+                <button type="button" class="btn btn-danger" @click="confirmDelete($event)"></button>
             </div>
         </td>
     </tr>
