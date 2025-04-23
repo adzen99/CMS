@@ -10,8 +10,6 @@ import Model from '../components/Model.vue'
 
 import models from '../models'
 
-console.log(models);
-
 var routes = [
     {
         path: '/model',
@@ -52,7 +50,6 @@ var routes = [
 ]
 
 for(const model of models){
-    console.log(model)
     routes.push({
         path: model.path,
         name: model.name,

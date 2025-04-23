@@ -1,6 +1,8 @@
 <template>
     <div :class="elementClass">
-          <label v-if="formElement.label" class="form-label">{{ formElement.label }}</label>
+          <label v-if="formElement.label" class="form-label">{{ formElement.label }}
+            <span v-if="formElement.required" style="color:salmon;">*</span>
+          </label>
           <div class="input-group">
             <select :class="{ 'form-select' : true, 'is-valid' : formElement.isValid, 'is-invalid': formElement.isInvalid }" :name="formElement.name" v-model="value">
                 <option v-for="(opt, index) in options" :value="opt.value" :selected="opt.selected" :key="opt.value">{{ opt.text }}</option>

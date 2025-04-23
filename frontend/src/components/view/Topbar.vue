@@ -114,6 +114,18 @@
                         ]
                     },
                     {
+                        label: 'Parteneri',
+                        command: () => {
+                            this.$router.push('/partners');
+                        }
+                    },
+                    {
+                        label: 'Companii',
+                        command: () => {
+                            this.$router.push('/companies');
+                        }
+                    },
+                    {
                         label: 'Contul meu',
                         command: () => {
                             this.$router.push('/myaccount');

@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
-# from app.routers import user, advertisement
+from app.routers import model
 from app.database import engine
 from app.models import Base
 from fastapi.staticfiles import StaticFiles
@@ -38,7 +38,7 @@ def custom_swagger_ui(credentials: HTTPBasicCredentials = Depends(authenticate))
 def openapi(credentials: HTTPBasicCredentials = Depends(authenticate)):
     return get_openapi(title=app.title, version=app.version, routes=app.routes)
 
-app.mount("/db_images", StaticFiles(directory="app/db_images"), name="db_images")
+# app.mount("/db_images", StaticFiles(directory="app/db_images"), name="db_images")
 
 app.add_middleware(
     CORSMiddleware,
@@ -49,4 +49,4 @@ app.add_middleware(
 )
 
 # app.include_router(user.router, prefix="/api")
-# app.include_router(advertisement.router, prefix="/api")
+app.include_router(model.router, prefix="/api")

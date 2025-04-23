@@ -1,5 +1,5 @@
 <template>
-    <form :action="form.action" :method="form.method" @submit.prevent="formSubmitted" class="row g-3" ref="form">
+    <form :action="`${this.$apiUrl}${this.form.endpoint}`" :method="form.method" @submit.prevent="formSubmitted" class="row g-3" ref="form">
         <template v-if="!form.getItemsAction">
             <component 
                 v-for="formElement in formElements" 
@@ -163,7 +163,7 @@ export default {
                 }
             }
             if(result){
-                this.$emit('triggerAlertDanger', 'Please fill the highlighted fields.')
+                this.$emit('triggerAlertDanger', 'Completati campurile evidentiate.')
             }
             return result
         },
@@ -254,7 +254,7 @@ export default {
             if (this.isWorking) return
             if(!this.checkRequired()){
                 this.isWorking = true
-                await fetch(this.form.action, {
+                await fetch(`${this.$apiUrl}${this.form.endpoint}`, {
                     method: this.form.method,
                     headers: {
                         "Content-Type": "application/json",
@@ -340,10 +340,10 @@ export default {
                     d['id'] = this.object.id
                 }
             }else{
-                // this.formElements.forEach(e => {
-                //     if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
-                //     if('value' in e){ d[e.name] = e.value }
-                // })
+                this.formElements.forEach(e => {
+                    // if(e.name == 'id_user' && e.type == 'hidden'){ d[e.name] = this.$store.state.user.id }else
+                    if('value' in e){ d[e.name] = e.value }
+                })
             }
             return d
         },
