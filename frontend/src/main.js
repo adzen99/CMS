@@ -24,6 +24,7 @@ app.use(ToastService)
 app.use(ConfirmationService)
 
 app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$apiUrl = 'http://localhost:8000/api';
 // app.config.globalProperties.$apiUrl = config.apiUrl;
 // app.config.globalProperties.$baseUrl = config.baseUrl;
 

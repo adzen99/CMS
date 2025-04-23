@@ -2,7 +2,7 @@
     <div class="row m-5">
         <div class="d-flex info-card">
             <h5>{{ props.presentationText ? props.presentationText : '' }}</h5>
-            <button type="button" class="btn btn-warning">{{ props.addButton.text ? props.addButton.text : ''
+            <button type="button" class="btn btn-success"><i class="pi pi-plus-circle"></i>{{ props.addButton.text ? props.addButton.text : ''
                 }}</button>
         </div>
         <section>
@@ -28,8 +28,15 @@ export default {
     props: {
         props: Object,
     },
-    mounted() {
-        console.log(this.props)
+    async mounted() {
+        await this.$axios.get(`${this.$apiUrl}${this.props.endpoint}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: {
+                model: this.props.model,
+            },
+        });
     },
     data() {
         return {

@@ -14,7 +14,9 @@ const models = [
                 date: 'Data',
                 contract: 'Contract',
                 value: 'Valoare',
-            }
+            },
+            endpoint: '/get',
+            model: 'appendix'
         }
     },
 ]

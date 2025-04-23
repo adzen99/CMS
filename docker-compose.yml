@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend
+    container_name: backend_cms
     build:
       context: ./backend
     env_file:
@@ -9,8 +9,8 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
 
   # frontend:
   #   container_name: frontend
@@ -34,25 +34,25 @@ services:
   #   depends_on:
   #     - backend
 
-  db:
-    image: postgres
-    container_name: db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypassword
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  # db:
+  #   image: postgres
+  #   container_name: db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: mypassword
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: test@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - "8080:80"
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: test@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: root
+  #   ports:
+  #     - "8080:80"
 
 # volumes:
 #   db_data:
